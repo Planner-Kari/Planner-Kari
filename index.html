@@ -6,7 +6,7 @@
 <title>PLANNER</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Josefin+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Josefin+Sans:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -19,11 +19,11 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
   --green:#34C759;--green-bg:#F0FFF4;--green-border:#B8E0C4;
   --red:#FF3B30;--red-bg:#FFF0F0;--red-border:#FFBDBA;
   --font:'Josefin Sans','Helvetica Neue',sans-serif;
-  --font-display:'Cormorant Garamond','Playfair Display',Georgia,serif;
+  --font-display:'Inter','Helvetica Neue',sans-serif;
   --accent:#6E7A42;--accent-shadow:rgba(110,122,66,0.4);--accent-dark:#A86545;--accent-deep:#8B5038;
   --accent-light:#F0E6DF;--accent-pale:#E7EBDB;--paper:#EEF1E6;--accent-onDark:#9AAA7A;
 }
-.header{background:var(--paper);padding:12px 32px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #D4C5BB;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.header{background:var(--paper);padding:12px 32px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--accent);box-shadow:0 2px 10px rgba(0,0,0,0.07);}
 .header-left{display:flex;flex-direction:column;gap:4px;}
 .header-label{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--accent);font-weight:400;}
 .header-title{font-size:22px;font-weight:300;color:#2D1F1A;letter-spacing:2px;line-height:1;}
@@ -65,7 +65,8 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .section-chevron.collapsed{transform:rotate(-90deg);}
 .section-body{padding:0;background:#FFFFFF;}
 .section-body.collapsed{display:none;}
-.tbl-header{display:grid;grid-template-columns:28px 32px 130px 1fr 140px;padding:0 8px;border-bottom:1.5px solid #D4C5BB;background:var(--accent-pale);}
+.tbl-header{display:grid;grid-template-columns:28px 32px 130px 1fr 140px;padding:0 8px;background:#6E7A42;border-bottom:1.5px solid #D4C5BB;position:sticky;top:0;z-index:5;}
+.tbl-header span{color:#fff!important;}
 .tbl-header span{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dark3);font-weight:500;padding:8px 0;}
 .tbl-header span:nth-child(3){text-align:center;}
 .tbl-header span:nth-child(5){text-align:right;padding-right:8px;}
@@ -126,7 +127,7 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .hx-autocomp-item mark{background:transparent;color:var(--accent-deep);font-weight:500;}
 .hx-autocomp-empty{font-family:var(--font);font-size:12.5px;font-weight:300;color:var(--gray);padding:12px 14px;text-align:center;letter-spacing:1.5px;text-transform:uppercase;font-style:italic;}
 /* Popover Valor HX */
-.hx-val-btn{font-family:var(--font-display);font-size:16px;font-weight:500;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;background:transparent;border:1px solid #E0D4CD;color:var(--accent-deep);padding:7px 12px;border-radius:8px;cursor:pointer;width:100%;text-align:right;transition:all .15s;}
+.hx-val-btn{font-family:var(--font-display);font-size:16px;font-weight:400;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;background:transparent;border:1px solid #E0D4CD;color:#2D1F1A;padding:7px 12px;border-radius:8px;cursor:pointer;width:100%;text-align:right;transition:all .15s;}
 .hx-val-btn:hover{background:#FAF6F3;border-color:var(--accent);}
 .hx-val-btn.empty{color:var(--gray);font-family:var(--font);font-size:11px;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;text-align:center;}
 .hx-val-overlay{position:fixed;inset:0;z-index:180;display:none;}
@@ -151,8 +152,9 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .undo-toast .undo-msg{color:rgba(245,239,230,0.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;font-weight:300;}
 .undo-toast .undo-btn{font-family:var(--font);font-size:10px;letter-spacing:1.8px;text-transform:uppercase;background:transparent;border:1px solid rgba(245,239,230,0.28);color:#F0D8B8;padding:6px 14px;border-radius:12px;cursor:pointer;font-weight:400;transition:all .15s;flex-shrink:0;}
 .undo-toast .undo-btn:hover,.undo-toast .undo-btn:active{background:rgba(245,239,230,0.1);border-color:rgba(245,239,230,0.5);color:#fff;}
-.row-del{background:transparent;border:none;color:rgba(142,142,147,0.35);cursor:pointer;font-size:17px;padding:8px 6px;transition:all .15s;font-weight:300;line-height:1;border-radius:6px;}
-.row:hover .row-del{color:rgba(142,142,147,0.7);}
+.row-del{background:transparent;border:none;color:rgba(142,142,147,0.65);cursor:pointer;font-size:17px;padding:8px 6px;transition:all .15s;font-weight:300;line-height:1;border-radius:6px;position:relative;}
+.row-del::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;}
+.row:hover .row-del{color:rgba(142,142,147,0.85);}
 .row-del:hover{color:#FF3B30!important;background:rgba(255,59,48,0.08);}
 .total-row{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-top:1px solid var(--border);background:#F5F5F7;border-radius:0 0 24px 24px;}
 .total-label{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray);font-weight:400;}
@@ -190,10 +192,10 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 @media(max-width:500px){.cards-row{grid-template-columns:1fr;}.row,.tbl-header{grid-template-columns:24px 28px 100px 1fr 110px;}}
 @media print{.fab-wrap,.mod-nav{display:none!important;}body{background:#fff!important;}.header{background:#1c1c1e!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.section{break-inside:avoid;}.mod-view{display:none!important;}.mod-view.active{display:block!important;}}
 .mod-nav{background:var(--paper);display:flex;align-items:center;gap:8px;padding:10px 40px;border-bottom:1.5px solid #D4C5BB;}
-.mod-btn{font-family:var(--font);font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:400;flex:1;justify-content:center;padding:12px 16px;border:1.5px solid rgba(45,31,26,0.18);border-radius:12px;cursor:pointer;color:rgba(45,31,26,0.6);background:transparent;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap;}
-.mod-btn:hover{color:#2D1F1A;background:rgba(45,31,26,0.06);border-color:rgba(45,31,26,0.3);}
-.mod-btn-group{display:flex;flex-direction:column;gap:22px;margin-top:40px;margin-bottom:8px;}
-.mod-btn.active{color:#FFFFFF;background:var(--accent);border-color:var(--accent);font-weight:500;box-shadow:0 3px 14px var(--accent-shadow);}
+.mod-btn{font-family:var(--font);font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:500;flex:1;justify-content:center;padding:14px 16px;border:none;border-radius:999px;cursor:pointer;color:rgba(45,31,26,0.55);background:rgba(45,31,26,0.045);transition:all .25s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.mod-btn:hover{color:#2D1F1A;background:rgba(45,31,26,0.09);}
+.mod-btn.active{color:#FFFFFF;background:linear-gradient(135deg,var(--accent),var(--accent-deep));border:none;font-weight:600;box-shadow:0 4px 16px var(--accent-shadow);}
+.mod-btn-group{display:flex;flex-direction:column;gap:22px;margin-top:0;margin-bottom:0;}
 .mod-name{pointer-events:none;}
 .mod-view{display:none;}
 .mod-view.active{display:block;animation:fadeIn .25s ease;}
@@ -206,21 +208,23 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .ox-card-val.pos{color:var(--dark);}
 .ox-card-val.neg{color:var(--dark);}
 .ox-tbl-card{background:#FFFFFF;border-radius:16px;border:1.5px solid #D4C5BB;margin-bottom:14px;box-shadow:0 2px 12px rgba(100,60,30,0.08);overflow:hidden;}
-.ox-tbl{width:100%;border-collapse:collapse;margin-bottom:0;}
+.ox-tbl{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:0;}
 .ox-tbl thead tr{background:var(--accent-pale);}
 .ox-tbl thead th{font-family:var(--font);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:#3D2418;padding:12px 12px;text-align:left;white-space:nowrap;}
 .ox-tbl tbody tr{border-bottom:1px solid #E0D3C8;background:#FFFFFF;}
+#view-horas .ox-tbl tbody tr{border-bottom:1px solid #F0EAE3;}
 .ox-tbl tbody tr:hover{background:#FAF5F0;}
 .ox-tbl tbody tr.cx-row{opacity:.45;}
 .ox-tbl td{padding:6px 4px;vertical-align:middle;}
 .ox-inp{font-family:var(--font);font-size:18px;font-weight:350;padding:8px 8px;border:1px solid transparent;border-radius:8px;background:transparent;width:100%;color:#2D1F1A;transition:border-color .15s;}
 .ox-inp:focus{outline:none;border-color:var(--accent);background:#fff;}
-.ox-inp.num{text-align:right;font-family:var(--font-display);font-size:17px;font-weight:500;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;color:var(--accent-deep);}
+.ox-inp.num{text-align:right;font-family:var(--font-display);font-size:17px;font-weight:400;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;color:#2D1F1A;}
 .ox-sel{font-family:var(--font);font-size:13px;font-weight:300;padding:7px 6px;border:1px solid #E0D4CD;border-radius:6px;background:#FFFFFF;color:#2D1F1A;cursor:pointer;width:100%;}
-.ox-calc{font-family:var(--font-display);font-size:17px;font-weight:500;color:var(--accent-deep);text-align:right;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;letter-spacing:.3px;padding:6px 8px;display:block;}
+.ox-calc{font-family:var(--font-display);font-size:17px;font-weight:400;color:#2D1F1A;text-align:right;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;letter-spacing:.3px;padding:6px 8px;display:block;}
 .ox-add{display:flex;align-items:center;gap:8px;padding:16px 20px;cursor:pointer;color:#fff;font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:400;border:none;border-radius:16px;margin-bottom:16px;transition:all .2s;background:var(--accent);font-family:var(--font);width:100%;justify-content:center;}
 .ox-add:hover{background:var(--accent-dark);}
-.ox-del{background:transparent;border:none;cursor:pointer;color:rgba(142,142,147,0.4);font-size:16px;padding:6px 8px;border-radius:6px;transition:all .15s;line-height:1;font-weight:300;}
+.ox-del{background:transparent;border:none;cursor:pointer;color:rgba(142,142,147,0.65);font-size:16px;padding:6px 8px;border-radius:6px;transition:all .15s;line-height:1;font-weight:300;position:relative;}
+.ox-del::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;}
 .ox-del:hover{color:#FF3B30;background:rgba(255,59,48,0.08);}
 .ox-total-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 22px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dark3);font-weight:700;margin:4px 0 8px;background:var(--accent-pale);border-radius:14px;border:1.5px solid #D4C5BB;}
 .ox-total-val{font-family:var(--font-display);font-size:24px;font-weight:500;color:var(--accent-deep);font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;letter-spacing:0.3px;}
@@ -268,7 +272,7 @@ body{color:#141210;}
 /* ══════════════════════════════════════════
    MENÚ DE MÓDULOS + TARJETAS COMO BARRA LATERAL IZQUIERDA
    ══════════════════════════════════════════ */
-.mod-nav{position:fixed;top:0;left:0;bottom:0;width:248px;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:8px;padding:26px 16px;border-bottom:none;border-right:1.5px solid #D4C5BB;overflow-y:auto;z-index:50;}
+.mod-nav{position:fixed;top:0;left:0;bottom:0;width:248px;flex-direction:column;align-items:stretch;justify-content:center;gap:44px;padding:26px 16px;border-bottom:none;border-right:1.5px solid #D4C5BB;overflow-y:auto;z-index:50;}
 .mod-btn{flex:none;justify-content:flex-start;padding:13px 14px;font-size:13px;letter-spacing:1px;white-space:nowrap;}
 .header{margin-left:248px;}
 .mod-view{margin-left:248px;background:var(--paper);}
@@ -624,7 +628,7 @@ function renderContent(){
         </div>
           <span id="stotal-${sec.key}" style="font-family:var(--font-display);font-size:23px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:'lnum' 1,'tnum' 1;letter-spacing:0.3px;">${fmtMoney(total)}</span>
       </div>
-      <div class="section-body" id="sbody-${sec.key}">
+      <div class="section-body" id="sbody-${sec.key}" style="max-height:440px;overflow-y:auto;">
         <div class="tbl-header"><span></span><span></span><span>Fecha</span><span>Concepto</span><span>Monto</span></div>
         ${isEmpty?`<div class="empty-msg">Sin ${sec.nombre.toLowerCase()} este mes</div>`:''}
         ${items.map((it,ri)=>`
@@ -943,7 +947,7 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function esc2(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 let curMod='control';
 function setMod(mod){curMod=mod;['optitex','horas'].forEach(m=>{document.getElementById('view-'+m).classList.toggle('active',m===mod);document.getElementById('modbtn-'+m).classList.toggle('active',m===mod);const hy=document.getElementById('hy-'+m);if(hy)hy.style.display=m===mod?'flex':'none';});document.getElementById('hx-tabs-bar').style.display=mod==='horas'?'grid':'none';document.getElementById('ox-fact-side').style.display=mod==='optitex'?'flex':'none';document.getElementById('hx-fact-side').style.display=mod==='horas'?'flex':'none';
-  const colores={optitex:['#6E655C','rgba(110,101,92,0.4)','#EAE7E3','#EDEBE7','#A39A92'],horas:['#9C7A3C','rgba(156,122,60,0.4)','#F2E8D3','#F5EEDC','#C9A968']};
+  const colores={optitex:['#6E655C','rgba(110,101,92,0.4)','#EAE7E3','#EDEBE7','#A39A92'],horas:['#9C7A3C','rgba(156,122,60,0.4)','#F2E8D3','#EDEBE7','#C9A968']};
   document.documentElement.style.setProperty('--accent',colores[mod][0]);
   document.documentElement.style.setProperty('--accent-shadow',colores[mod][1]);
   document.documentElement.style.setProperty('--accent-pale',colores[mod][2]);
@@ -1008,33 +1012,33 @@ function oxDigHTML(){
   function unidadCell(){if(fact.isCustomUnidad)return`<input type="text" class="ox-sel" style="text-align:right;font-size:14px;font-variant-numeric:tabular-nums;width:100%" inputmode="numeric" placeholder="$ valor" value="${fact.colUnidad?fmtInput(fact.colUnidad):''}" oninput="oxDigColUnidadCustom(this)" onblur="oxRenderContent()"/>`;return`<select class="ox-sel" onchange="oxDigColUnidad(this.value)"><option value="">— Sel. —</option><option value="2500"${u===2500&&!fact.isCustomUnidad?' selected':''}>$2.500</option><option value="otro">Otro...</option></select>`;}
   function valorCell(){if(fact.isCustomValor)return`<input type="text" class="ox-sel" style="text-align:right;font-size:14px;font-variant-numeric:tabular-nums;width:100%" inputmode="numeric" placeholder="$ valor" value="${fact.colValor?fmtInput(fact.colValor):''}" oninput="oxDigColValorCustom(this)" onblur="oxRenderContent()"/>`;return`<select class="ox-sel" onchange="oxDigColValor(this.value)"><option value="">— Sel. —</option><option value="10000"${v===10000&&!fact.isCustomValor?' selected':''}>$10.000</option><option value="otro">Otro...</option></select>`;}
   return`<div class="ox-body">
-    <div class="ox-tbl-card" style="width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;overflow-x:auto;">
+    <div class="ox-tbl-card" style="width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;overflow:auto;max-height:calc(100vh - 200px);">
     <table class="ox-tbl" style="table-layout:fixed;width:auto;"><thead>
     <tr>
-      <th style="background:#fff;padding:0;border-bottom:none;"></th>
-      <th style="background:#fff;padding:0;border-bottom:none;"></th>
-      <th colspan="3" style="background:#D7DBE0;padding:5px 8px;text-align:center;font-size:9px;letter-spacing:1.5px;font-weight:700;color:#40454C;border-bottom:1px solid #D4C5BB;">PROCESO 1</th>
-      <th colspan="3" style="background:#E0AD4E;padding:5px 8px;text-align:center;font-size:9px;letter-spacing:1.5px;font-weight:700;color:#4A3200;border-bottom:1px solid #D4C5BB;">PROCESO 2</th>
-      <th colspan="2" style="background:var(--accent);padding:5px 8px;text-align:center;font-size:9px;letter-spacing:1.5px;font-weight:700;color:#fff;">RESULTADO</th>
+      <th style="background:#fff;padding:0;border-bottom:none;position:sticky;top:0;z-index:6;"></th>
+      <th style="background:#fff;padding:0;border-bottom:none;position:sticky;top:0;z-index:6;"></th>
+      <th colspan="3" style="background:#6E7A42;padding:8px 8px;text-align:center;font-size:10px;letter-spacing:2px;font-weight:700;color:#fff;border-bottom:1px solid #D4C5BB;position:sticky;top:0;z-index:6;">PROCESO 1</th>
+      <th colspan="3" style="background:#A86545;padding:8px 8px;text-align:center;font-size:10px;letter-spacing:2px;font-weight:700;color:#fff;border-bottom:1px solid #D4C5BB;position:sticky;top:0;z-index:6;">PROCESO 2</th>
+      <th colspan="2" style="background:#2C2C2E;padding:8px 8px;text-align:center;font-size:10px;letter-spacing:2px;font-weight:700;color:#fff;position:sticky;top:0;z-index:6;">RESULTADO</th>
     </tr>
     <tr>
-      <th style="width:28px"></th>
-      <th class="th-referencia" style="width:88px">Referencia</th><th style="width:56px;text-align:center;background:#E8EAED;color:#40454C;">Piezas</th>
-      <th style="width:100px;background:#E8EAED;color:#40454C;">Unidad</th><th style="width:100px;text-align:right;background:#E8EAED;color:#40454C;">Costo Dig.</th>
-      <th style="width:56px;text-align:center;background:#F5DFA8;color:#4A3200;">Escalas</th><th style="width:100px;background:#F5DFA8;color:#4A3200;">Valor</th>
-      <th style="width:110px;text-align:right;background:#F5DFA8;color:#4A3200;">Tot. Escalas</th><th style="width:116px;text-align:right;background:#EFECE9;color:#3D3833;">Precio Final</th>
-      <th style="width:110px;background:#EFECE9;color:#3D3833;">Tallas</th>
+      <th style="width:28px;position:sticky;top:26px;z-index:5;background:#fff;"></th>
+      <th class="th-referencia" style="width:88px;position:sticky;top:26px;z-index:5;background:#fff;font-weight:700;letter-spacing:2.2px;">Referencia</th><th style="width:56px;text-align:center;background:#DCE6CB;color:#52602F;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Piezas</th>
+      <th style="width:100px;background:#DCE6CB;color:#52602F;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Unidad</th><th style="width:100px;text-align:right;background:#DCE6CB;color:#52602F;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Costo Dig.</th>
+      <th style="width:56px;text-align:center;background:#F1DDCF;color:#8B4F32;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Escalas</th><th style="width:100px;background:#F1DDCF;color:#8B4F32;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Valor</th>
+      <th style="width:110px;text-align:right;background:#F1DDCF;color:#8B4F32;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Tot. Escalas</th><th style="width:116px;text-align:right;background:#E2E2E2;color:#1A1A1B;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Precio Final</th>
+      <th style="width:110px;background:#E2E2E2;color:#1A1A1B;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Tallas</th>
     </tr></thead>
     <tbody>${rows.map((r,i)=>{
       const c=(parseFloat(r.piezas)||0)*u;const t=(parseFloat(r.cant)||0)*v;const p=c+t;
       const selTallas=(r.tallas||[]).filter(t2=>TALLAS_LIST.includes(t2));
       const tallasDisplay=selTallas.length>0?`<span style="font-size:14px;font-weight:500;color:#2D1F1A;">${selTallas.join(' · ')}</span>`:`<span style="color:var(--gray);font-size:14px;">—</span>`;
       return`<tr><td><button class="ox-del" onclick="oxDDel(${i})" title="Eliminar">×</button></td>
-      <td><div style="display:flex;align-items:center;"><span style="font-size:15px;font-weight:600;color:#2D1F1A;padding-left:8px;">Ref.</span><input type="text" class="ox-inp ref-inp" style="padding-left:4px;" value="${esc2(r.ref||'')}" placeholder="0000" oninput="oxDUpd(${i},'ref',this.value);ajustarAnchoReferencia()"/></div></td>
-      <td style="background:#F2F3F5;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.piezas||''}" placeholder="0" oninput="oxDNum(this,${i},'piezas')" onblur="oxRenderContent()"/></td>
-      <td style="background:#F2F3F5;">${unidadCell()}</td><td style="background:#F2F3F5;"><span class="ox-calc">${oxFmt(c)}</span></td>
-      <td style="background:#FAF0D8;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.cant||''}" placeholder="0" oninput="oxDNum(this,${i},'cant')" onblur="oxRenderContent()"/></td>
-      <td style="background:#FAF0D8;">${valorCell()}</td><td style="background:#FAF0D8;"><span class="ox-calc">${oxFmt(t)}</span></td><td style="background:#F7F5F3;"><span class="ox-calc" style="font-weight:600;">${oxFmt(p)}</span></td>
+      <td style="background:#EDEAE5;"><div style="display:flex;align-items:center;"><span style="font-size:15px;font-weight:600;color:#2D1F1A;padding-left:8px;">Ref.</span><input type="text" class="ox-inp ref-inp" style="padding-left:4px;" value="${esc2(r.ref||'')}" placeholder="0000" oninput="oxDUpd(${i},'ref',this.value);ajustarAnchoReferencia()"/></div></td>
+      <td style="background:#DCE6CB;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.piezas||''}" placeholder="0" oninput="oxDNum(this,${i},'piezas')" onblur="oxRenderContent()"/></td>
+      <td style="background:#DCE6CB;">${unidadCell()}</td><td style="background:#DCE6CB;"><span class="ox-calc">${oxFmt(c)}</span></td>
+      <td style="background:#F1DDCF;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.cant||''}" placeholder="0" oninput="oxDNum(this,${i},'cant')" onblur="oxRenderContent()"/></td>
+      <td style="background:#F1DDCF;">${valorCell()}</td><td style="background:#F1DDCF;"><span class="ox-calc">${oxFmt(t)}</span></td><td style="background:#F7F5F3;"><span class="ox-calc" style="font-weight:600;">${oxFmt(p)}</span></td>
       <td style="position:relative;background:#F7F5F3;"><button class="talla-trigger" onclick="oxTogTallaPopup(event,${i})">${tallasDisplay}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;opacity:.4;"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="talla-popup" id="talla-pop-${i}">${TALLAS_LIST.map(t2=>{const on=selTallas.includes(t2);return`<button class="talla-popup-item${on?' on':''}" onclick="event.stopPropagation();oxTogTalla(${i},'${t2}')">${on?'✓':''} ${t2}</button>`;}).join('')}</div></td></tr>`;
     }).join('')}</tbody></table></div>
@@ -1121,8 +1125,13 @@ function hxRenderContent(){
   const cont=document.getElementById('hx-content');if(!cont)return;
   hxRenderFactSide();
   cont.innerHTML=`<div class="ox-body">
-    <div class="ox-tbl-card">
-    <table class="ox-tbl" style="min-width:0;"><thead><tr><th style="width:32px;"></th><th style="width:118px;">Fecha</th><th>Descripción</th><th style="width:160px;text-align:right;">Valor</th></tr></thead>
+    <div class="ox-tbl-card" style="overflow:auto;max-height:calc(100vh - 200px);">
+    <table class="ox-tbl" style="min-width:0;"><thead><tr>
+      <th style="width:32px;position:sticky;top:0;z-index:5;background:#FEFCFA;border-bottom:2px solid #8B5038;"></th>
+      <th style="width:118px;position:sticky;top:0;z-index:5;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:2.2px;border-bottom:2px solid #8B5038;">Fecha</th>
+      <th style="position:sticky;top:0;z-index:5;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:2.2px;border-bottom:2px solid #8B5038;">Descripción</th>
+      <th style="width:160px;text-align:right;position:sticky;top:0;z-index:5;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:2.2px;border-bottom:2px solid #8B5038;">Valor</th>
+    </tr></thead>
     <tbody>${rows.map((r,i)=>`<tr>
       <td><button class="ox-del" onclick="hxDel(${i})" title="Eliminar">×</button></td>
       <td><button type="button" class="date-btn${r.fecha?'':' unset'}" onclick="openDPHx(event,${i})" title="Elegir fecha" style="padding:9px 6px;">${r.fecha?fmtFecha(r.fecha):'—'}</button></td>
