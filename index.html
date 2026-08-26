@@ -23,11 +23,11 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
   --accent:#6E7A42;--accent-shadow:rgba(110,122,66,0.4);--accent-dark:#A86545;--accent-deep:#8B5038;
   --accent-light:#F0E6DF;--accent-pale:#E7EBDB;--paper:#EEF1E6;--accent-onDark:#9AAA7A;
 }
-.header{background:var(--paper);padding:12px 32px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--accent);box-shadow:0 2px 10px rgba(0,0,0,0.07);}
+.header{position:fixed;top:0;left:248px;right:0;height:70px;box-sizing:border-box;z-index:60;background:var(--paper);padding:12px 32px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--accent);box-shadow:0 2px 10px rgba(0,0,0,0.07);}
 .header-left{display:flex;flex-direction:column;gap:4px;}
 .header-label{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--accent);font-weight:400;}
-.header-title{font-size:22px;font-weight:300;color:#2D1F1A;letter-spacing:2px;line-height:1;}
-.header-title span{color:var(--accent);font-weight:200;}
+.header-title{font-size:34px;font-weight:300;color:#2D1F1A;letter-spacing:2px;line-height:1;}
+.header-title span{color:rgba(110,122,66,0.55);font-weight:200;}
 .header-right{display:flex;align-items:center;gap:12px;}
 .saved-badge{font-size:9px;color:#34C759;letter-spacing:3px;text-transform:uppercase;opacity:0;transition:opacity .5s ease,transform .5s ease;font-weight:300;transform:translateY(4px);}
 .saved-badge.show{opacity:1;transform:translateY(0);}
@@ -94,6 +94,8 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .dp-hdr{display:flex;justify-content:space-between;align-items:center;padding:0 4px 10px;border-bottom:1px solid var(--border);margin-bottom:10px;}
 .dp-title{font-family:var(--font);font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-deep);font-weight:500;}
 .dp-clear{font-family:var(--font);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);background:transparent;border:none;cursor:pointer;padding:5px 10px;border-radius:10px;font-weight:400;transition:all .15s;}
+.dp-nav{font-family:var(--font-display);font-size:15px;line-height:1;color:var(--dark);background:transparent;border:none;cursor:pointer;padding:4px 7px;border-radius:8px;transition:all .15s;}
+.dp-nav:hover{background:rgba(0,0,0,0.06);}
 .dp-clear:hover{color:#FF3B30;background:rgba(255,59,48,0.06);}
 .dp-wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;}
 .dp-wday{font-family:var(--font);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);font-weight:500;text-align:center;padding:4px 0;}
@@ -200,14 +202,24 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .mod-view{display:none;}
 .mod-view.active{display:block;animation:fadeIn .25s ease;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.ox-body{padding:16px 40px 80px;max-width:1280px;margin:0 auto;}
+.ox-body{padding:16px 40px 80px;max-width:1280px;margin:0 auto;display:flex;flex-direction:column;flex:1;min-height:0;width:100%;box-sizing:border-box;}
 .ox-summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
 .ox-card{background:#FFFFFF;border-radius:16px;padding:10px 16px;border:1.5px solid #D4C5BB;box-shadow:0 2px 10px rgba(100,60,30,0.08);}
 .ox-card-label{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dark3);margin-bottom:4px;font-weight:500;}
 .ox-card-val{font-family:var(--font-display);font-size:26px;font-weight:400;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;color:var(--dark);letter-spacing:0.3px;line-height:1.05;}
 .ox-card-val.pos{color:var(--dark);}
 .ox-card-val.neg{color:var(--dark);}
-.ox-tbl-card{background:#FFFFFF;border-radius:16px;border:1.5px solid #D4C5BB;margin-bottom:14px;box-shadow:0 2px 12px rgba(100,60,30,0.08);overflow:hidden;}
+.ox-tbl-card{background:#FFFFFF;border-radius:16px;border:1.5px solid #D4C5BB;margin-bottom:14px;box-shadow:0 2px 12px rgba(100,60,30,0.08);overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;}
+.ox-add{flex:0 0 auto;}
+.ox-total-row{flex:0 0 auto;}
+.ox-tbl-head-wrap{flex:0 0 auto;overflow:hidden;}
+.ox-tbl-body-wrap{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-ms-overflow-style:none;scrollbar-width:none;}
+.ox-tbl-body-wrap::-webkit-scrollbar{width:0;height:0;}
+:root{--ox-ref-w:88px;}
+.ox-grid-row{display:grid;grid-template-columns:28px var(--ox-ref-w,88px) 72px 100px 114px 74px 100px 130px 128px 170px;width:max-content;}
+.hx-grid-row{display:grid;grid-template-columns:32px 118px 1fr 160px;width:100%;}
+.ox-col-label{font-family:'Josefin Sans','Helvetica Neue',sans-serif;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;padding:12px 8px;white-space:nowrap;display:flex;align-items:center;overflow:hidden;text-overflow:clip;}
+.ox-col-cell{padding:8px 9px;display:flex;align-items:center;min-width:0;}
 .ox-tbl{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:0;}
 .ox-tbl thead tr{background:var(--accent-pale);}
 .ox-tbl thead th{font-family:var(--font);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:#3D2418;padding:12px 12px;text-align:left;white-space:nowrap;}
@@ -233,7 +245,7 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .btn-add-circle:active{transform:scale(0.96);}
 .btn-add-circle svg{width:14px;height:14px;}
 .ox-empty{text-align:center;color:var(--gray);padding:28px;font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;}
-.talla-trigger{font-family:var(--font);font-size:12px;font-weight:300;padding:5px 10px;border:1px solid rgba(60,60,67,0.2);border-radius:8px;cursor:pointer;background:#fff;color:#3a3a3c;min-width:60px;text-align:left;display:flex;align-items:center;gap:4px;position:relative;white-space:nowrap;}
+.talla-trigger{font-family:var(--font);font-size:12px;font-weight:300;padding:5px 10px;border:1px solid rgba(60,60,67,0.2);border-radius:8px;cursor:pointer;background:#fff;color:#3a3a3c;min-width:60px;width:100%;box-sizing:border-box;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:4px;position:relative;white-space:nowrap;}
 .talla-popup{position:fixed;z-index:200;background:#FFFFFF;border:1px solid #E0D4CD;border-radius:14px;box-shadow:0 20px 48px rgba(0,0,0,0.18),0 4px 12px rgba(0,0,0,0.1);padding:8px;display:none;flex-direction:column;gap:4px;min-width:140px;max-height:320px;overflow-y:auto;animation:dpIn .18s ease;}
 .talla-popup.open{display:flex;}
 .talla-popup-item{font-family:var(--font);font-size:13px;font-weight:300;padding:7px 12px;border-radius:8px;border:none;cursor:pointer;background:transparent;color:#3a3a3c;text-align:left;transition:all .15s;display:flex;align-items:center;gap:8px;}
@@ -258,8 +270,9 @@ body{color:#141210;}
 .mod-name{font-size:13.5px;}
 .row input{font-size:23px;}
 .row input[type="text"][inputmode="numeric"]{font-size:23px;}
-.row input.input-fecha,.date-btn{font-size:20px;}
-.hx-desc-ta{font-size:22px;}
+.row input.input-fecha{font-size:20px;}
+.date-btn{font-size:14px;font-weight:500;color:#9A8B7D;}
+.hx-desc-ta{font-size:24px;font-weight:500;}
 .ox-inp{font-size:22px;}
 .ox-inp.num,.ox-calc,.hx-val-btn{font-size:21px;}
 .hx-val-opt{font-size:19px;}
@@ -274,8 +287,9 @@ body{color:#141210;}
    ══════════════════════════════════════════ */
 .mod-nav{position:fixed;top:0;left:0;bottom:0;width:248px;flex-direction:column;align-items:stretch;justify-content:center;gap:44px;padding:26px 16px;border-bottom:none;border-right:1.5px solid #D4C5BB;overflow-y:auto;z-index:50;}
 .mod-btn{flex:none;justify-content:flex-start;padding:13px 14px;font-size:13px;letter-spacing:1px;white-space:nowrap;}
-.header{margin-left:248px;}
-.mod-view{margin-left:248px;background:var(--paper);}
+.mod-view{margin-left:248px;background:var(--paper);padding-top:70px;height:100dvh;box-sizing:border-box;overflow:hidden;}
+.mod-view.active{display:flex;flex-direction:column;}
+#ox-content,#hx-content{display:flex;flex-direction:column;flex:1;min-height:0;}
 #cards-row{display:flex;flex-direction:column;gap:8px;margin:14px 0 0;padding:16px 0 0;border-top:1.5px solid #D4C5BB;width:100%;max-width:none;}
 #cards-row .card{padding:11px 13px 10px;border-radius:14px;}
 #cards-row .card-label{font-size:10.5px;letter-spacing:1.3px;margin-bottom:4px;}
@@ -285,11 +299,25 @@ body{color:#141210;}
 .tab:hover{background:rgba(45,31,26,.12);}
 .tab.active{background:var(--accent);color:#fff;border-bottom-color:transparent;font-weight:500;box-shadow:0 2px 8px var(--accent-shadow);}
 .side-fact{display:flex;flex-direction:column;gap:8px;margin:14px 0 0;padding:16px 0 0;border-top:1.5px solid #D4C5BB;width:100%;}
+.hx-fact-lbl{font-family:var(--font);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#8B6F5F;font-weight:600;}
+.hx-fact-lbl-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;background:transparent;border:none;cursor:pointer;padding:0;color:#8B6F5F;}
+.hx-fact-active-row{display:flex;align-items:stretch;background:var(--accent);border:1px solid var(--accent);border-radius:12px;overflow:hidden;width:fit-content;max-width:100%;}
+.hx-fact-name-input{font-family:var(--font);font-size:12.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:500;color:#fff;background:transparent;border:none;padding:12px 4px 12px 14px;outline:none;width:140px;max-width:100%;transition:width .12s ease;}
+.hx-fact-name-input::placeholder{color:rgba(255,255,255,0.6);}
+.hx-fact-chev-btn{flex:0 0 auto;width:34px;border:none;background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+.hx-fact-list{display:flex;flex-direction:column;gap:4px;max-height:260px;overflow-y:auto;background:#fff;border:1px solid var(--border);border-radius:12px;padding:6px;}
+.hx-fact-opt{display:flex;justify-content:space-between;align-items:center;gap:6px;font-family:var(--font);font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:10px 12px;border-radius:8px;border:none;cursor:pointer;background:transparent;color:var(--dark);text-align:left;font-weight:300;}
+.hx-fact-opt:hover{background:#FAF6F2;}
+.hx-fact-opt.on{background:var(--accent);color:#fff;font-weight:600;}
+.hx-fact-check{font-size:11px;}
+.hx-fact-new{flex:1;font-family:var(--font);font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;padding:11px;border-radius:12px;cursor:pointer;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);}
+.hx-fact-del{font-family:var(--font);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:400;padding:11px 15px;border:none;border-radius:12px;cursor:pointer;background:var(--accent);color:#fff;white-space:nowrap;}
 @media(max-width:640px){
   .mod-nav{position:static;flex-direction:row;flex-wrap:wrap;width:auto;padding:12px 16px;border-right:none;border-bottom:1.5px solid #D4C5BB;}
   .mod-btn{flex:1;justify-content:center;padding:11px 6px;}
   .mod-btn-group{display:contents;}
-  .header{margin-left:0;}
+  .header{left:0;}
+  .mod-nav{padding-top:82px;}
   .mod-view{margin-left:0;}
   #cards-row{flex-direction:row;flex-wrap:wrap;flex-basis:100%;order:99;margin-top:10px;padding-top:10px;}
   #cards-row .card{flex:1 1 45%;}
@@ -342,7 +370,6 @@ body{color:#141210;}
 <!-- HEADER -->
 <div class="header">
   <div class="header-left">
-    <div class="header-label">Gestor financiero</div>
     <div class="header-title"><span>PLANNER</span></div>
   </div>
   <div class="header-right">
@@ -374,7 +401,6 @@ body{color:#141210;}
     <span class="mod-name" id="mname-horas">H_Extras</span>
   </button>
   </div>
-  <div class="tabs-bar hx-side" id="hx-tabs-bar" style="display:none"></div>
   <div class="side-fact" id="ox-fact-side" style="display:none"></div>
   <div class="side-fact" id="hx-fact-side" style="display:none"></div>
 </div>
@@ -931,7 +957,7 @@ function importarRespaldo(e){
   toggleFab();const file=e.target.files[0];if(!file)return;const reader=new FileReader();
   reader.onload=function(ev){
     try{const imported=JSON.parse(ev.target.result);
-      showModal('Cargar datos','¿Cargar los datos de este archivo? Esto reemplazará los datos actuales.',[{text:'Cancelar',cls:'',action:()=>closeModal()},{text:'Cargar',cls:'primary',action:()=>{if(imported.optitex)oxData=imported.optitex;if(imported.horas)hxData=imported.horas;oxSave();hxSave();if(curMod==='optitex'){oxRenderYearSel();oxRenderContent();}if(curMod==='horas'){hxRenderYearSel();hxRenderTabs();hxRenderContent();}closeModal();}}]);
+      showModal('Cargar datos','¿Cargar los datos de este archivo? Esto reemplazará los datos actuales.',[{text:'Cancelar',cls:'',action:()=>closeModal()},{text:'Cargar',cls:'primary',action:()=>{if(imported.optitex)oxData=imported.optitex;if(imported.horas)hxData=imported.horas;oxSave();hxSave();if(curMod==='optitex'){oxRenderYearSel();oxRenderContent();}if(curMod==='horas'){hxRenderYearSel();hxRenderContent();}closeModal();}}]);
     }catch(err){alert('Error: El archivo no es un respaldo válido.');}e.target.value='';
   };reader.readAsText(file);
 }
@@ -946,14 +972,14 @@ function handleVal(input,key,ri){const raw=input.value.replace(/\D/g,'');input.v
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function esc2(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 let curMod='control';
-function setMod(mod){curMod=mod;['optitex','horas'].forEach(m=>{document.getElementById('view-'+m).classList.toggle('active',m===mod);document.getElementById('modbtn-'+m).classList.toggle('active',m===mod);const hy=document.getElementById('hy-'+m);if(hy)hy.style.display=m===mod?'flex':'none';});document.getElementById('hx-tabs-bar').style.display=mod==='horas'?'grid':'none';document.getElementById('ox-fact-side').style.display=mod==='optitex'?'flex':'none';document.getElementById('hx-fact-side').style.display=mod==='horas'?'flex':'none';
+function setMod(mod){curMod=mod;['optitex','horas'].forEach(m=>{document.getElementById('view-'+m).classList.toggle('active',m===mod);document.getElementById('modbtn-'+m).classList.toggle('active',m===mod);const hy=document.getElementById('hy-'+m);if(hy)hy.style.display=m===mod?'flex':'none';});document.getElementById('ox-fact-side').style.display=mod==='optitex'?'flex':'none';document.getElementById('hx-fact-side').style.display=mod==='horas'?'flex':'none';
   const colores={optitex:['#6E655C','rgba(110,101,92,0.4)','#EAE7E3','#EDEBE7','#A39A92'],horas:['#9C7A3C','rgba(156,122,60,0.4)','#F2E8D3','#EDEBE7','#C9A968']};
   document.documentElement.style.setProperty('--accent',colores[mod][0]);
   document.documentElement.style.setProperty('--accent-shadow',colores[mod][1]);
   document.documentElement.style.setProperty('--accent-pale',colores[mod][2]);
   document.documentElement.style.setProperty('--paper',colores[mod][3]);
   document.documentElement.style.setProperty('--accent-onDark',colores[mod][4]);
-  if(mod==='optitex'){oxRenderYearSel();oxRenderContent();}if(mod==='horas'){hxRenderYearSel();hxRenderTabs();hxRenderContent();}}
+  if(mod==='optitex'){oxRenderYearSel();oxRenderContent();}if(mod==='horas'){hxRenderYearSel();hxRenderContent();}}
 function fabPDF(){toggleFab();if(curMod==='optitex')oxDPDF();else if(curMod==='horas')hxPDF();else imprimirPDF();}
 /* ══ OPTITÉX ══ */
 let oxData={};let curOxYear=new Date().getFullYear();
@@ -965,9 +991,9 @@ function oxEnsure(y){if(!oxData[y])oxData[y]={horas:[],dig:[]};if(!oxData[y].hor
 function oxSelYear(y){curOxYear=y;oxRenderYearSel();oxRenderContent();}
 function oxAddYear(){const ys=Object.keys(oxData).map(Number);const next=ys.length?Math.max(...ys)+1:new Date().getFullYear();curOxYear=next;oxEnsure(next);oxSave();oxRenderYearSel();oxRenderContent();}
 function oxRenderYearSel(){const sel=document.getElementById('ox-year-sel');if(!sel)return;const years=Object.keys(oxData).map(Number);if(!years.includes(curOxYear))years.push(curOxYear);years.sort();sel.innerHTML=years.map(y=>`<option value="${y}"${y===curOxYear?' selected':''}>${y}</option>`).join('');}
-function oxRenderContent(){oxEnsure(curOxYear);const cont=document.getElementById('ox-content');if(!cont)return;cont.innerHTML=oxDigHTML();oxRenderFactSide();ajustarAnchoReferencia();}
+function oxRenderContent(){oxEnsure(curOxYear);const cont=document.getElementById('ox-content');if(!cont)return;const prevWrap=cont.querySelector('.ox-tbl-body-wrap');const prevScroll=prevWrap?prevWrap.scrollTop:0;cont.innerHTML=oxDigHTML();oxRenderFactSide();ajustarAnchoReferencia();const newWrap=cont.querySelector('.ox-tbl-body-wrap');if(newWrap)newWrap.scrollTop=prevScroll;}
 function ajustarAnchoReferencia(){
-  const inputs=document.querySelectorAll('.ox-tbl .ref-inp');
+  const inputs=document.querySelectorAll('.ref-inp');
   if(!inputs.length)return;
   let medidor=document.getElementById('ref-medidor');
   if(!medidor){
@@ -982,7 +1008,7 @@ function ajustarAnchoReferencia(){
     if(medidor.offsetWidth>maxAncho)maxAncho=medidor.offsetWidth;
   });
   const anchoFinal=Math.max(88,maxAncho+34);
-  document.querySelectorAll('.ox-tbl .th-referencia').forEach(th=>{th.style.width=anchoFinal+'px';});
+  document.documentElement.style.setProperty('--ox-ref-w',anchoFinal+'px');
 }
 function oxRenderFactSide(){
   const side=document.getElementById('ox-fact-side');if(!side)return;
@@ -1012,36 +1038,42 @@ function oxDigHTML(){
   function unidadCell(){if(fact.isCustomUnidad)return`<input type="text" class="ox-sel" style="text-align:right;font-size:14px;font-variant-numeric:tabular-nums;width:100%" inputmode="numeric" placeholder="$ valor" value="${fact.colUnidad?fmtInput(fact.colUnidad):''}" oninput="oxDigColUnidadCustom(this)" onblur="oxRenderContent()"/>`;return`<select class="ox-sel" onchange="oxDigColUnidad(this.value)"><option value="">— Sel. —</option><option value="2500"${u===2500&&!fact.isCustomUnidad?' selected':''}>$2.500</option><option value="otro">Otro...</option></select>`;}
   function valorCell(){if(fact.isCustomValor)return`<input type="text" class="ox-sel" style="text-align:right;font-size:14px;font-variant-numeric:tabular-nums;width:100%" inputmode="numeric" placeholder="$ valor" value="${fact.colValor?fmtInput(fact.colValor):''}" oninput="oxDigColValorCustom(this)" onblur="oxRenderContent()"/>`;return`<select class="ox-sel" onchange="oxDigColValor(this.value)"><option value="">— Sel. —</option><option value="10000"${v===10000&&!fact.isCustomValor?' selected':''}>$10.000</option><option value="otro">Otro...</option></select>`;}
   return`<div class="ox-body">
-    <div class="ox-tbl-card" style="width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;overflow:auto;max-height:calc(100vh - 200px);">
-    <table class="ox-tbl" style="table-layout:fixed;width:auto;"><thead>
-    <tr>
-      <th style="background:#fff;padding:0;border-bottom:none;position:sticky;top:0;z-index:6;"></th>
-      <th style="background:#fff;padding:0;border-bottom:none;position:sticky;top:0;z-index:6;"></th>
-      <th colspan="3" style="background:#6E7A42;padding:8px 8px;text-align:center;font-size:10px;letter-spacing:2px;font-weight:700;color:#fff;border-bottom:1px solid #D4C5BB;position:sticky;top:0;z-index:6;">PROCESO 1</th>
-      <th colspan="3" style="background:#A86545;padding:8px 8px;text-align:center;font-size:10px;letter-spacing:2px;font-weight:700;color:#fff;border-bottom:1px solid #D4C5BB;position:sticky;top:0;z-index:6;">PROCESO 2</th>
-      <th colspan="2" style="background:#2C2C2E;padding:8px 8px;text-align:center;font-size:10px;letter-spacing:2px;font-weight:700;color:#fff;position:sticky;top:0;z-index:6;">RESULTADO</th>
-    </tr>
-    <tr>
-      <th style="width:28px;position:sticky;top:26px;z-index:5;background:#fff;"></th>
-      <th class="th-referencia" style="width:88px;position:sticky;top:26px;z-index:5;background:#fff;font-weight:700;letter-spacing:2.2px;">Referencia</th><th style="width:56px;text-align:center;background:#DCE6CB;color:#52602F;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Piezas</th>
-      <th style="width:100px;background:#DCE6CB;color:#52602F;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Unidad</th><th style="width:100px;text-align:right;background:#DCE6CB;color:#52602F;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Costo Dig.</th>
-      <th style="width:56px;text-align:center;background:#F1DDCF;color:#8B4F32;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Escalas</th><th style="width:100px;background:#F1DDCF;color:#8B4F32;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Valor</th>
-      <th style="width:110px;text-align:right;background:#F1DDCF;color:#8B4F32;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Tot. Escalas</th><th style="width:116px;text-align:right;background:#E2E2E2;color:#1A1A1B;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Precio Final</th>
-      <th style="width:110px;background:#E2E2E2;color:#1A1A1B;position:sticky;top:26px;z-index:5;font-weight:700;letter-spacing:2.2px;">Tallas</th>
-    </tr></thead>
-    <tbody>${rows.map((r,i)=>{
+    <div class="ox-tbl-card" style="width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;">
+    <div class="ox-tbl-head-wrap">
+    <div class="ox-grid-row">
+      <div style="background:#fff;"></div>
+      <div style="background:#fff;"></div>
+      <div style="grid-column:span 3;background:linear-gradient(180deg,#7C8A4C,#6E7A42);padding:11px 8px;text-align:center;font-size:11.5px;letter-spacing:3px;font-weight:700;color:#fff;border-bottom:1px solid #D4C5BB;">PROCESO 1</div>
+      <div style="grid-column:span 3;background:linear-gradient(180deg,#B87552,#A86545);padding:11px 8px;text-align:center;font-size:11.5px;letter-spacing:3px;font-weight:700;color:#fff;border-bottom:1px solid #D4C5BB;">PROCESO 2</div>
+      <div style="grid-column:span 2;background:linear-gradient(180deg,#3A3A3C,#2C2C2E);padding:11px 8px;text-align:center;font-size:11.5px;letter-spacing:3px;font-weight:700;color:#fff;">RESULTADO</div>
+    </div>
+    <div class="ox-grid-row">
+      <div class="ox-col-label" style="background:#fff;"></div>
+      <div class="ox-col-label th-referencia" style="background:#fff;font-weight:700;letter-spacing:1.3px;">Referencia</div>
+      <div class="ox-col-label" style="justify-content:center;text-align:center;background:#DCE6CB;color:#52602F;font-weight:700;letter-spacing:1.3px;">Piezas</div>
+      <div class="ox-col-label" style="background:#DCE6CB;color:#52602F;font-weight:700;letter-spacing:1.3px;">Unidad</div>
+      <div class="ox-col-label" style="justify-content:flex-end;text-align:right;background:#DCE6CB;color:#52602F;font-weight:700;letter-spacing:1.3px;">Costo Dig.</div>
+      <div class="ox-col-label" style="justify-content:center;text-align:center;background:#F1DDCF;color:#8B4F32;font-weight:700;letter-spacing:1.3px;">Escalas</div>
+      <div class="ox-col-label" style="background:#F1DDCF;color:#8B4F32;font-weight:700;letter-spacing:1.3px;">Valor</div>
+      <div class="ox-col-label" style="justify-content:flex-end;text-align:right;background:#F1DDCF;color:#8B4F32;font-weight:700;letter-spacing:1.3px;">Tot. Escalas</div>
+      <div class="ox-col-label" style="justify-content:flex-end;text-align:right;background:#E2E2E2;color:#1A1A1B;font-weight:700;letter-spacing:1.3px;">Precio Final</div>
+      <div class="ox-col-label" style="background:#E2E2E2;color:#1A1A1B;font-weight:700;letter-spacing:1.3px;">Tallas</div>
+    </div>
+    </div>
+    <div class="ox-tbl-body-wrap">
+    ${rows.map((r,i)=>{
       const c=(parseFloat(r.piezas)||0)*u;const t=(parseFloat(r.cant)||0)*v;const p=c+t;
       const selTallas=(r.tallas||[]).filter(t2=>TALLAS_LIST.includes(t2));
       const tallasDisplay=selTallas.length>0?`<span style="font-size:14px;font-weight:500;color:#2D1F1A;">${selTallas.join(' · ')}</span>`:`<span style="color:var(--gray);font-size:14px;">—</span>`;
-      return`<tr><td><button class="ox-del" onclick="oxDDel(${i})" title="Eliminar">×</button></td>
-      <td style="background:#EDEAE5;"><div style="display:flex;align-items:center;"><span style="font-size:15px;font-weight:600;color:#2D1F1A;padding-left:8px;">Ref.</span><input type="text" class="ox-inp ref-inp" style="padding-left:4px;" value="${esc2(r.ref||'')}" placeholder="0000" oninput="oxDUpd(${i},'ref',this.value);ajustarAnchoReferencia()"/></div></td>
-      <td style="background:#DCE6CB;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.piezas||''}" placeholder="0" oninput="oxDNum(this,${i},'piezas')" onblur="oxRenderContent()"/></td>
-      <td style="background:#DCE6CB;">${unidadCell()}</td><td style="background:#DCE6CB;"><span class="ox-calc">${oxFmt(c)}</span></td>
-      <td style="background:#F1DDCF;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.cant||''}" placeholder="0" oninput="oxDNum(this,${i},'cant')" onblur="oxRenderContent()"/></td>
-      <td style="background:#F1DDCF;">${valorCell()}</td><td style="background:#F1DDCF;"><span class="ox-calc">${oxFmt(t)}</span></td><td style="background:#F7F5F3;"><span class="ox-calc" style="font-weight:600;">${oxFmt(p)}</span></td>
-      <td style="position:relative;background:#F7F5F3;"><button class="talla-trigger" onclick="oxTogTallaPopup(event,${i})">${tallasDisplay}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;opacity:.4;"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="talla-popup" id="talla-pop-${i}">${TALLAS_LIST.map(t2=>{const on=selTallas.includes(t2);return`<button class="talla-popup-item${on?' on':''}" onclick="event.stopPropagation();oxTogTalla(${i},'${t2}')">${on?'✓':''} ${t2}</button>`;}).join('')}</div></td></tr>`;
-    }).join('')}</tbody></table></div>
+      return`<div class="ox-grid-row"><div class="ox-col-cell"><button class="ox-del" onclick="oxDDel(${i})" title="Eliminar">×</button></div>
+      <div class="ox-col-cell" style="background:#EDEAE5;"><span style="font-size:15px;font-weight:600;color:#2D1F1A;padding-left:8px;">Ref.</span><input type="text" class="ox-inp ref-inp" style="padding-left:4px;" value="${esc2(r.ref||'')}" placeholder="0000" oninput="oxDUpd(${i},'ref',this.value);ajustarAnchoReferencia()"/></div>
+      <div class="ox-col-cell" style="background:#DCE6CB;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.piezas||''}" placeholder="0" oninput="oxDNum(this,${i},'piezas')" onblur="oxRenderContent()"/></div>
+      <div class="ox-col-cell" style="background:#DCE6CB;">${unidadCell()}</div><div class="ox-col-cell" style="background:#DCE6CB;"><span class="ox-calc">${oxFmt(c)}</span></div>
+      <div class="ox-col-cell" style="background:#F1DDCF;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.cant||''}" placeholder="0" oninput="oxDNum(this,${i},'cant')" onblur="oxRenderContent()"/></div>
+      <div class="ox-col-cell" style="background:#F1DDCF;">${valorCell()}</div><div class="ox-col-cell" style="background:#F1DDCF;"><span class="ox-calc">${oxFmt(t)}</span></div><div class="ox-col-cell" style="background:#F7F5F3;"><span class="ox-calc" style="font-weight:600;">${oxFmt(p)}</span></div>
+      <div class="ox-col-cell" style="position:relative;background:#F7F5F3;"><button class="talla-trigger" onclick="oxTogTallaPopup(event,${i})">${tallasDisplay}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;opacity:.4;"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="talla-popup" id="talla-pop-${i}">${TALLAS_LIST.map(t2=>{const on=selTallas.includes(t2);return`<button class="talla-popup-item${on?' on':''}" onclick="event.stopPropagation();oxTogTalla(${i},'${t2}')">${on?'✓':''} ${t2}</button>`;}).join('')}</div></div></div>`;
+    }).join('')}</div></div>
     ${rows.length===0?'<div class="ox-empty">Sin referencias — pulsa Agregar para comenzar</div>':''}
     <button class="ox-add" onclick="oxDAdd()" style="width:fit-content;max-width:100%;min-width:320px;margin-left:auto;margin-right:auto;display:flex;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar referencia</button>
     <div class="ox-total-row"><span>Total</span><span class="ox-total-val">${oxFmt(total)}</span></div>
@@ -1073,7 +1105,7 @@ function oxDigColUnidad(val){const f=oxCurDigFact();if(val==='otro'){f.isCustomU
 function oxDigColUnidadCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colUnidad=raw||2500;oxSave();}
 function oxDigColValor(val){const f=oxCurDigFact();if(val==='otro'){f.isCustomValor=true;f.colValor='';}else if(val===''){f.isCustomValor=false;f.colValor=10000;}else{f.isCustomValor=false;f.colValor=parseFloat(val)||10000;}oxSave();oxRenderContent();}
 function oxDigColValorCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colValor=raw||10000;oxSave();}
-function oxDAdd(){const f=oxCurDigFact();f.rows.push({id:Date.now(),ref:'',cant:'',piezas:'',tallas:[]});oxSave();oxRenderContent();}
+function oxDAdd(){const f=oxCurDigFact();f.rows.push({id:Date.now(),ref:'',cant:'',piezas:'',tallas:[]});oxSave();oxRenderContent();const wrap=document.querySelector('#ox-content .ox-tbl-body-wrap');if(wrap)wrap.scrollTop=wrap.scrollHeight;}
 function oxDDel(i){
   const f=oxCurDigFact();
   const removed={...f.rows[i],tallas:[...(f.rows[i].tallas||[])]};
@@ -1104,90 +1136,157 @@ function oxDPDF(){
   descargarComoPDF(pdfName,html,1050);
 }
 /* ══ HORAS EXTRAS ══ */
-let hxData={};let curHxYear=new Date().getFullYear();let curHxMonth=new Date().getMonth();let curHxFact=0;
+let hxData={};let curHxYear=new Date().getFullYear();let curHxFact=0;let hxFactPickerOpen=false;
 const HX_KEY=y=>'hextra_'+y;const HX_YEARS=[2024,2025,2026,2027,2028,2029,2030,2031];
 const HX_VALS=[85000];
 const HX_DESCS=['Proceso de moldería de','Proceso de muestra física de','Proceso de Terminación de muestra física de','Proceso de Escalas de','Modificación de Molderia de','Digitalizado y Escalas de','Proceso de confección de'];
 function hxLoad(){HX_YEARS.forEach(y=>{const r=localStorage.getItem(HX_KEY(y));if(r)try{hxData[y]=JSON.parse(r);}catch(e){}});hxMigrateData();}
-function hxMigrateData(){for(const y of Object.keys(hxData)){const yd=hxData[y];if(Array.isArray(yd)){const nd={};for(let m=0;m<12;m++)nd[m]=[{id:Date.now(),nombre:`Factura ${MESES[m]} ${y}`,rows:[]}];yd.forEach(entry=>{let month=new Date().getMonth();if(entry.fecha){const p=entry.fecha.split('-');if(p.length===3){const mm=parseInt(p[1])-1;if(mm>=0&&mm<=11)month=mm;}}nd[month][0].rows.push(entry);});hxData[y]=nd;}else{for(const m of Object.keys(yd)){if(Array.isArray(yd[m])&&yd[m].length>0&&!yd[m][0].rows)yd[m]=[{id:Date.now()+parseInt(m),nombre:`Factura ${MESES[m]} ${y}`,rows:yd[m]}];}}}}
+function hxMigrateData(){
+  for(const y of Object.keys(hxData)){
+    const yd=hxData[y];
+    if(Array.isArray(yd)){
+      const yaEsFacturas=yd.length===0||(yd[0]&&Array.isArray(yd[0].rows));
+      if(yaEsFacturas)continue; // ya está en el formato actual (año -> lista de facturas): no tocar
+      // Formato antiquísimo: lista plana de registros sueltos para el año, sin facturas ni meses.
+      hxData[y]=yd.length>0?[{id:Date.now(),nombre:`Factura ${y}`,rows:yd}]:[];
+      continue;
+    }
+    if(yd&&typeof yd==='object'){
+      // Formato anterior: objeto con una casilla por mes (0-11), cada una con su lista de facturas.
+      const esPorMes=Object.keys(yd).every(k=>/^\d+$/.test(k));
+      if(esPorMes){
+        const flat=[];
+        for(let m=11;m>=0;m--){
+          const facts=Array.isArray(yd[m])?yd[m]:[];
+          facts.forEach(f=>{
+            if(f&&Array.isArray(f.rows)&&f.rows.length>0)flat.push(f);
+          });
+        }
+        hxData[y]=flat;
+      }
+    }
+  }
+}
 function hxSave(){try{Object.entries(hxData).forEach(([y,d])=>{localStorage.setItem(HX_KEY(y),JSON.stringify(d));syncPush(HX_KEY(y),d);});}catch(e){console.error(e);}}
-function hxEnsure(y,m){if(!hxData[y])hxData[y]={};for(let i=0;i<12;i++){if(!Array.isArray(hxData[y][i])||hxData[y][i].length===0||!hxData[y][i][0].rows)hxData[y][i]=[{id:Date.now()+i,nombre:`Factura ${MESES[i]}`,rows:[]}];}}
-function hxCurFactura(){hxEnsure(curHxYear);const facts=hxData[curHxYear][curHxMonth];if(curHxFact>=facts.length)curHxFact=0;return facts[curHxFact];}
-function hxSelYear(y){curHxYear=y;curHxFact=0;hxRenderYearSel();hxRenderTabs();hxRenderContent();}
-function hxAddYear(){const ys=Object.keys(hxData).map(Number);const next=ys.length?Math.max(...ys)+1:new Date().getFullYear();curHxYear=next;curHxFact=0;hxEnsure(next);hxSave();hxRenderYearSel();hxRenderTabs();hxRenderContent();}
+function hxEnsure(y){if(!Array.isArray(hxData[y])||hxData[y].length===0)hxData[y]=[{id:Date.now(),nombre:'Factura 1',rows:[]}];}
+function hxCurFactura(){hxEnsure(curHxYear);const facts=hxData[curHxYear];if(curHxFact>=facts.length)curHxFact=0;return facts[curHxFact];}
+function hxSelYear(y){curHxYear=y;curHxFact=0;hxFactPickerOpen=false;hxRenderYearSel();hxRenderContent();}
+function hxAddYear(){const ys=Object.keys(hxData).map(Number);const next=ys.length?Math.max(...ys)+1:new Date().getFullYear();curHxYear=next;curHxFact=0;hxFactPickerOpen=false;hxEnsure(next);hxSave();hxRenderYearSel();hxRenderContent();}
 function hxRenderYearSel(){const sel=document.getElementById('hx-year-sel');if(!sel)return;const years=Object.keys(hxData).map(Number);if(!years.includes(curHxYear))years.push(curHxYear);years.sort();sel.innerHTML=years.map(y=>`<option value="${y}"${y===curHxYear?' selected':''}>${y}</option>`).join('');}
-function hxRenderTabs(){const bar=document.getElementById('hx-tabs-bar');if(!bar)return;hxEnsure(curHxYear);bar.innerHTML=MESES.map((m,i)=>{const facts=hxData[curHxYear][i]||[];const hasDatos=facts.some(f=>(f.rows||[]).some(r=>r.valor&&r.valor!==''));const dot=hasDatos?`<span style="display:block;width:4px;height:4px;border-radius:50%;background:var(--accent);margin:3px auto 0;opacity:0.8;"></span>`:'<span style="display:block;height:7px;"></span>';return`<button class="tab${i===curHxMonth?' active':''}" onclick="hxSelMonth(${i})">${m}${dot}</button>`;}).join('');}
-function hxSelMonth(m){curHxMonth=m;curHxFact=0;hxRenderTabs();hxRenderContent();}
 function hxRenderContent(){
-  hxEnsure(curHxYear);const facts=hxData[curHxYear][curHxMonth];if(curHxFact>=facts.length)curHxFact=0;
+  hxEnsure(curHxYear);const facts=hxData[curHxYear];if(curHxFact>=facts.length)curHxFact=0;
   const fact=facts[curHxFact];const rows=fact.rows||[];const total=rows.reduce((a,r)=>a+(parseFloat(r.valor)||0),0);
-  const primerDia=`${curHxYear}-${String(curHxMonth+1).padStart(2,'0')}-01`;const ultimoDia=new Date(curHxYear,curHxMonth+1,0);const maxDia=`${curHxYear}-${String(curHxMonth+1).padStart(2,'0')}-${String(ultimoDia.getDate()).padStart(2,'0')}`;
   const cont=document.getElementById('hx-content');if(!cont)return;
+  const prevWrap=cont.querySelector('.ox-tbl-body-wrap');const prevScroll=prevWrap?prevWrap.scrollTop:0;
   hxRenderFactSide();
   cont.innerHTML=`<div class="ox-body">
-    <div class="ox-tbl-card" style="overflow:auto;max-height:calc(100vh - 200px);">
-    <table class="ox-tbl" style="min-width:0;"><thead><tr>
-      <th style="width:32px;position:sticky;top:0;z-index:5;background:#FEFCFA;border-bottom:2px solid #8B5038;"></th>
-      <th style="width:118px;position:sticky;top:0;z-index:5;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:2.2px;border-bottom:2px solid #8B5038;">Fecha</th>
-      <th style="position:sticky;top:0;z-index:5;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:2.2px;border-bottom:2px solid #8B5038;">Descripción</th>
-      <th style="width:160px;text-align:right;position:sticky;top:0;z-index:5;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:2.2px;border-bottom:2px solid #8B5038;">Valor</th>
-    </tr></thead>
-    <tbody>${rows.map((r,i)=>`<tr>
-      <td><button class="ox-del" onclick="hxDel(${i})" title="Eliminar">×</button></td>
-      <td><button type="button" class="date-btn${r.fecha?'':' unset'}" onclick="openDPHx(event,${i})" title="Elegir fecha" style="padding:9px 6px;">${r.fecha?fmtFecha(r.fecha):'—'}</button></td>
-      <td><textarea class="hx-desc-ta" rows="1" placeholder="Descripción..." spellcheck="true" autocorrect="off" autocapitalize="sentences" lang="es" oninput="hxUpdDesc(this,${i})" onfocus="hxAutoResize(this);hxOpenAC(this,${i})" onblur="setTimeout(hxCloseAC,180)">${esc2(r.desc||'')}</textarea></td>
-      <td style="text-align:right;">${r.isCustom?`<input type="text" class="ox-inp" style="text-align:right;font-size:15px;font-variant-numeric:tabular-nums;width:100%;padding-right:8px;" inputmode="numeric" placeholder="valor" value="${r.valor?fmtInput(r.valor):''}" oninput="hxCustom(this,${i})" onblur="hxRenderContent()"/>`:`<button type="button" class="hx-val-btn${r.valor?'':' empty'}" onclick="hxOpenValPop(event,${i})">${r.valor?oxFmt(r.valor):'— Seleccionar —'}</button>`}</td>
-    </tr>`).join('')}</tbody></table></div>
+    <div class="ox-tbl-card">
+    <div class="ox-tbl-head-wrap">
+    <div class="hx-grid-row">
+      <div class="ox-col-label" style="background:#FEFCFA;border-bottom:2px solid #8B5038;"></div>
+      <div class="ox-col-label" style="background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:1.3px;border-bottom:2px solid #8B5038;">Fecha</div>
+      <div class="ox-col-label" style="background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:1.3px;border-bottom:2px solid #8B5038;">Descripción</div>
+      <div class="ox-col-label" style="justify-content:flex-end;text-align:right;background:#FEFCFA;color:#8B5038;font-weight:700;letter-spacing:1.3px;border-bottom:2px solid #8B5038;">Valor</div>
+    </div>
+    </div>
+    <div class="ox-tbl-body-wrap">
+    ${rows.map((r,i)=>`<div class="hx-grid-row">
+      <div class="ox-col-cell"><button class="ox-del" onclick="hxDel(${i})" title="Eliminar">×</button></div>
+      <div class="ox-col-cell"><button type="button" class="date-btn${r.fecha?'':' unset'}" onclick="openDPHx(event,${i})" title="Elegir fecha" style="padding:9px 6px;">${r.fecha?fmtFecha(r.fecha):'—'}</button></div>
+      <div class="ox-col-cell"><textarea class="hx-desc-ta" rows="1" placeholder="Descripción..." spellcheck="true" autocorrect="off" autocapitalize="sentences" lang="es" oninput="hxUpdDesc(this,${i})" onfocus="hxAutoResize(this);hxOpenAC(this,${i})" onblur="setTimeout(hxCloseAC,180)">${esc2(r.desc||'')}</textarea></div>
+      <div class="ox-col-cell" style="justify-content:flex-end;text-align:right;">${r.isCustom?`<input type="text" class="hx-val-btn" style="cursor:text;" inputmode="numeric" placeholder="valor" value="${r.valor?fmtInput(r.valor):''}" oninput="hxCustom(this,${i})" onblur="hxRenderContent()"/>`:`<button type="button" class="hx-val-btn${r.valor?'':' empty'}" onclick="hxOpenValPop(event,${i})">${r.valor?oxFmt(r.valor):'— Seleccionar —'}</button>`}</div>
+    </div>`).join('')}</div></div>
     ${rows.length===0?'<div class="ox-empty">Sin registros — pulsa Agregar para comenzar</div>':''}
     <button class="ox-add" onclick="hxAdd()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar hora extra</button>
     <div class="ox-total-row"><span>Total</span><span class="ox-total-val">${oxFmt(total)}</span></div>
   </div>`;
+  const newWrap=cont.querySelector('.ox-tbl-body-wrap');if(newWrap)newWrap.scrollTop=prevScroll;
   setTimeout(()=>{document.querySelectorAll('.hx-desc-ta').forEach(hxAutoResize);},0);
 }
-function hxSelFact(fi){curHxFact=fi;hxRenderContent();}
+function hxSelFact(fi){curHxFact=fi;hxFactPickerOpen=false;hxRenderContent();}
+function hxToggleFactPicker(){hxFactPickerOpen=!hxFactPickerOpen;hxRenderFactSide();}
 function hxRenderFactSide(){
   const side=document.getElementById('hx-fact-side');if(!side)return;
-  hxEnsure(curHxYear);const facts=hxData[curHxYear][curHxMonth];if(curHxFact>=facts.length)curHxFact=0;
-  side.innerHTML=`${facts.map((f,fi)=>fi===curHxFact
-      ? `<span style="display:flex;align-items:center;background:var(--accent);border-radius:12px;padding:12px 14px;border:1px solid var(--accent);">
-           <input type="text" value="${esc2(f.nombre||'')}" placeholder="Nombre..." oninput="hxUpdNombre(this.value)"
-             style="font-family:var(--font);font-size:12px;letter-spacing:1.3px;text-transform:uppercase;font-weight:400;color:#fff;background:transparent;border:none;outline:none;width:100%;"/>
-         </span>`
-      : `<button onclick="hxSelFact(${fi})" style="font-family:var(--font);font-size:12.5px;letter-spacing:1.3px;text-transform:uppercase;padding:13px 15px;border-radius:12px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--dark);font-weight:300;text-align:left;">${f.nombre||'Factura '+(fi+1)}</button>`
-    ).join('')}
-    <div style="display:flex;gap:8px;">
-      <button onclick="hxNuevaFactura()" style="flex:1;font-family:var(--font);font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;padding:11px;border-radius:12px;cursor:pointer;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);">+ Nueva</button>
-      ${facts.length>1?`<button onclick="hxElimFact()" style="font-family:var(--font);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:400;padding:11px 15px;border:none;border-radius:12px;cursor:pointer;background:var(--accent);color:#fff;white-space:nowrap;">Eliminar</button>`:''}
-    </div>`;
+  hxEnsure(curHxYear);const facts=hxData[curHxYear];if(curHxFact>=facts.length)curHxFact=0;
+  const active=facts[curHxFact];
+  const nuevaBtn=`<button onclick="hxNuevaFactura()" class="hx-fact-new">+ Nueva</button>`;
+  const elimBtn=facts.length>1?`<button onclick="hxElimFact()" class="hx-fact-del">Eliminar</button>`:'';
+  if(hxFactPickerOpen){
+    // Facturas ordenadas: la más reciente (índice 0) siempre arriba.
+    side.innerHTML=`
+      <button class="hx-fact-lbl-toggle" onclick="hxToggleFactPicker()" title="Cerrar">
+        <span class="hx-fact-lbl">Elige una factura</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform:rotate(180deg);"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="hx-fact-list">${facts.map((f,fi)=>
+        `<button class="hx-fact-opt${fi===curHxFact?' on':''}" onclick="hxSelFact(${fi})">${esc2(f.nombre||'Factura '+(fi+1))}${fi===curHxFact?' <span class="hx-fact-check">✓</span>':''}</button>`
+      ).join('')}</div>
+      <div style="display:flex;gap:8px;">${nuevaBtn}${elimBtn}</div>`;
+  }else{
+    side.innerHTML=`
+      <div class="hx-fact-lbl">Factura activa</div>
+      <div class="hx-fact-active-row">
+        <input id="hx-fact-input" type="text" class="hx-fact-name-input" value="${esc2(active.nombre||'')}" placeholder="Nombre..." oninput="hxUpdNombre(this.value);hxAjustarAnchoFactura()"/>
+        <button class="hx-fact-chev-btn" onclick="hxToggleFactPicker()" title="Ver todas las facturas">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;gap:8px;">${nuevaBtn}${elimBtn}</div>`;
+    hxAjustarAnchoFactura();
+  }
 }
-function hxNuevaFactura(){hxEnsure(curHxYear);const n=hxData[curHxYear][curHxMonth].length+1;hxData[curHxYear][curHxMonth].push({id:Date.now(),nombre:`Factura ${MESES[curHxMonth]} #${n}`,rows:[]});curHxFact=hxData[curHxYear][curHxMonth].length-1;hxSave();hxRenderContent();}
-function hxElimFact(){hxEnsure(curHxYear);if(!confirm('¿Eliminar esta factura?'))return;hxData[curHxYear][curHxMonth].splice(curHxFact,1);if(curHxFact>0)curHxFact--;hxSave();hxRenderContent();}
+function hxAjustarAnchoFactura(){
+  const inp=document.getElementById('hx-fact-input');
+  if(!inp)return;
+  let medidor=document.getElementById('hx-fact-medidor');
+  if(!medidor){
+    medidor=document.createElement('span');
+    medidor.id='hx-fact-medidor';
+    medidor.style.cssText='position:absolute;visibility:hidden;white-space:pre;left:-9999px;top:0;font-family:Josefin Sans,Helvetica Neue,sans-serif;font-size:12.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:500;';
+    document.body.appendChild(medidor);
+  }
+  medidor.textContent=inp.value||inp.placeholder||'Factura';
+  const ancho=Math.min(178,Math.max(90,medidor.offsetWidth+16));
+  inp.style.width=ancho+'px';
+}
+function hxNuevaFactura(){
+  hxEnsure(curHxYear);
+  const n=hxData[curHxYear].length+1;
+  hxData[curHxYear].unshift({id:Date.now(),nombre:`Factura ${n}`,rows:[]});
+  curHxFact=0;hxFactPickerOpen=false;
+  hxSave();hxRenderContent();
+  setTimeout(()=>{const inp=document.getElementById('hx-fact-input');if(inp){inp.focus();inp.select();}},0);
+}
+function hxElimFact(){hxEnsure(curHxYear);if(!confirm('¿Eliminar esta factura?'))return;hxData[curHxYear].splice(curHxFact,1);if(curHxFact>0)curHxFact--;hxFactPickerOpen=false;hxSave();hxRenderContent();}
 function hxUpdNombre(val){hxEnsure(curHxYear);hxCurFactura().nombre=val;hxSave();}
 function hxUpd(i,field,val){const f=hxCurFactura();f.rows[i][field]=val;hxSave();if(field!=='fecha'&&field!=='desc')hxRenderContent();}
 function hxSel(i,val){const r=hxCurFactura().rows[i];if(val==='custom'){r.isCustom=true;r.valor='';}else if(val===''){r.isCustom=false;r.valor='';}else{r.isCustom=false;r.valor=val;}hxSave();hxRenderContent();}
 function hxCustom(input,i){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';hxCurFactura().rows[i].valor=raw;hxSave();}
-function hxAdd(){hxCurFactura().rows.push({id:Date.now(),fecha:'',desc:'',valor:'',isCustom:false});hxSave();hxRenderContent();}
+function hxAdd(){hxCurFactura().rows.push({id:Date.now(),fecha:'',desc:'',valor:'',isCustom:false});hxSave();hxRenderContent();const wrap=document.querySelector('#hx-content .ox-tbl-body-wrap');if(wrap)wrap.scrollTop=wrap.scrollHeight;}
 function hxDel(i){
   const f=hxCurFactura();
   const removed={...f.rows[i]};
   f.rows.splice(i,1);hxSave();
-  const yr=curHxYear, mo=curHxMonth, fi=curHxFact;
+  const yr=curHxYear, fi=curHxFact;
   const label=(removed.desc||'').trim()||'Registro HX';
   pushUndo(label,()=>{
-    if(!hxData[yr]||!hxData[yr][mo]||!hxData[yr][mo][fi])return;
-    const arr=hxData[yr][mo][fi].rows;
+    if(!hxData[yr]||!hxData[yr][fi])return;
+    const arr=hxData[yr][fi].rows;
     arr.splice(Math.min(i,arr.length),0,removed);
     hxSave();
-    if(curHxYear===yr&&curHxMonth===mo&&curHxFact===fi)hxRenderContent();
+    if(curHxYear===yr&&curHxFact===fi)hxRenderContent();
   });
   hxRenderContent();
 }
-// Datepicker HX (reusa buildDP pero con curHxYear/curHxMonth)
+// Datepicker HX — ahora navega libremente entre meses (ya no depende de una pestaña de mes activa)
 let hxDpCtx=null;
 function openDPHx(evt,i){
   evt.stopPropagation();
   const r=hxCurFactura().rows[i];
-  hxDpCtx={i};
+  let y,m;
+  if(r.fecha){const p=r.fecha.split('-');y=parseInt(p[0],10);m=parseInt(p[1],10)-1;}
+  else{const t=new Date();y=t.getFullYear();m=t.getMonth();}
+  hxDpCtx={i,y,m};
   const pop=document.getElementById('dp-pop');
   const overlay=document.getElementById('dp-overlay');
   buildDPHx(pop,r.fecha);
@@ -1204,13 +1303,15 @@ function openDPHx(evt,i){
   overlay.onclick=function(e){if(e.target.id==='dp-overlay'){overlay.classList.remove('open');hxDpCtx=null;overlay.onclick=function(e2){closeDP(e2);};}};
 }
 function buildDPHx(pop,selFecha){
-  const y=curHxYear, m=curHxMonth;
+  const {y,m}=hxDpCtx;
   const startDOW=new Date(y,m,1).getDay();
   const daysInMonth=new Date(y,m+1,0).getDate();
   const tod=new Date();
   const isThisMonth=tod.getFullYear()===y && tod.getMonth()===m;
   const todayDate=tod.getDate();
-  const selDia=selFecha?parseInt(selFecha.split('-')[2],10):null;
+  const selYear=selFecha?parseInt(selFecha.split('-')[0],10):null;
+  const selMonth=selFecha?parseInt(selFecha.split('-')[1],10)-1:null;
+  const selDia=(selFecha&&selYear===y&&selMonth===m)?parseInt(selFecha.split('-')[2],10):null;
   const wdays=DOW_SHORT.map((d,i)=>`<div class="dp-wday" style="${(i===0||i===6)?'color:#C17753;':''}">${d}</div>`).join('');
   const blanks=Array(startDOW).fill('<button class="dp-day empty" tabindex="-1"></button>').join('');
   const days=Array.from({length:daysInMonth},(_,i)=>{
@@ -1226,7 +1327,11 @@ function buildDPHx(pop,selFecha){
   }).join('');
   pop.innerHTML=`
     <div class="dp-hdr">
-      <span class="dp-title">${MESES_FULL[m]} ${y}</span>
+      <div style="display:flex;align-items:center;gap:2px;">
+        <button type="button" class="dp-nav" onclick="hxDpNav(-1)" title="Mes anterior">‹</button>
+        <span class="dp-title">${MESES_FULL[m]} ${y}</span>
+        <button type="button" class="dp-nav" onclick="hxDpNav(1)" title="Mes siguiente">›</button>
+      </div>
       <button type="button" class="dp-clear" onclick="clearDiaHx()">Quitar</button>
     </div>
     <div class="dp-wdays">${wdays}</div>
@@ -1234,10 +1339,21 @@ function buildDPHx(pop,selFecha){
     <div class="dp-legend"><span><i style="background:var(--accent);"></i>Fin de semana</span><span><i style="background:#8B5038;"></i>Festivo</span></div>
   `;
 }
+function hxDpNav(dir){
+  if(!hxDpCtx)return;
+  let{y,m}=hxDpCtx;
+  m+=dir;
+  if(m<0){m=11;y--;}else if(m>11){m=0;y++;}
+  hxDpCtx.y=y;hxDpCtx.m=m;
+  const pop=document.getElementById('dp-pop');
+  const r=hxCurFactura().rows[hxDpCtx.i];
+  buildDPHx(pop,r.fecha);
+}
 function selDiaHx(d){
   if(!hxDpCtx) return;
-  const ymd=`${curHxYear}-${String(curHxMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-  hxCurFactura().rows[hxDpCtx.i].fecha=ymd;
+  const {y,m,i}=hxDpCtx;
+  const ymd=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  hxCurFactura().rows[i].fecha=ymd;
   hxSave();
   const o=document.getElementById('dp-overlay');
   if(o) o.classList.remove('open');
