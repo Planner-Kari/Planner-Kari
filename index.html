@@ -601,7 +601,7 @@ function showUndoToast(label){
   void t.offsetWidth;
   t.classList.add('show');
   if(undoTimeout) clearTimeout(undoTimeout);
-  undoTimeout=setTimeout(()=>{t.classList.remove('show');},8000);
+  undoTimeout=setTimeout(()=>{t.classList.remove('show');},18000);
 }
 function doUndo(){
   const last=undoStack.pop();
@@ -751,17 +751,17 @@ function oxDigHTML(){
       const tallasDisplay=selTallas.length>0?`<span style="font-size:14px;font-weight:500;color:#2D1F1A;">${selTallas.join(' · ')}</span>`:`<span style="color:var(--gray);font-size:14px;">—</span>`;
       return`<div class="ox-grid-row"><div class="ox-col-cell"><button class="ox-del" onclick="oxDDel(${i})" title="Eliminar">×</button></div>
       <div class="ox-col-cell" style="background:#EDEAE5;"><span style="font-size:15px;font-weight:600;color:#2D1F1A;padding-left:8px;">Ref.</span><input type="text" class="ox-inp ref-inp" style="padding-left:4px;" value="${esc2(r.ref||'')}" placeholder="0000" oninput="oxDUpd(${i},'ref',this.value);ajustarAnchoReferencia()"/></div>
-      <div class="ox-col-cell" style="background:#DCE6CB;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.piezas||''}" placeholder="0" oninput="oxDNum(this,${i},'piezas')" onblur="oxRenderContent()"/></div>
-      <div class="ox-col-cell" style="background:#DCE6CB;">${unidadCell()}</div><div class="ox-col-cell" style="background:#DCE6CB;"><span class="ox-calc">${oxFmt(c)}</span></div>
-      <div class="ox-col-cell" style="background:#F1DDCF;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.cant||''}" placeholder="0" oninput="oxDNum(this,${i},'cant')" onblur="oxRenderContent()"/></div>
-      <div class="ox-col-cell" style="background:#F1DDCF;">${valorCell()}</div><div class="ox-col-cell" style="background:#F1DDCF;"><span class="ox-calc">${oxFmt(t)}</span></div><div class="ox-col-cell" style="background:#F7F5F3;"><span class="ox-calc" style="font-weight:600;">${oxFmt(p)}</span></div>
-      <div class="ox-col-cell" style="position:relative;background:#F7F5F3;"><button class="talla-trigger" onclick="oxTogTallaPopup(event,${i})">${tallasDisplay}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;opacity:.4;"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="talla-popup" id="talla-pop-${i}">${TALLAS_LIST.map(t2=>{const on=selTallas.includes(t2);return`<button class="talla-popup-item${on?' on':''}" onclick="event.stopPropagation();oxTogTalla(${i},'${t2}')">${on?'✓':''} ${t2}</button>`;}).join('')}</div></div></div>`;
+      <div class="ox-col-cell" style="background:#DCE6CB;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.piezas||''}" placeholder="0" oninput="oxDNum(this,${i},'piezas')" onblur="oxRecalcRow(${i})"/></div>
+      <div class="ox-col-cell" style="background:#DCE6CB;">${unidadCell()}</div><div class="ox-col-cell" style="background:#DCE6CB;"><span class="ox-calc" id="ox-calc-c-${i}">${oxFmt(c)}</span></div>
+      <div class="ox-col-cell" style="background:#F1DDCF;"><input type="text" class="ox-inp num" inputmode="numeric" value="${r.cant||''}" placeholder="0" oninput="oxDNum(this,${i},'cant')" onblur="oxRecalcRow(${i})"/></div>
+      <div class="ox-col-cell" style="background:#F1DDCF;">${valorCell()}</div><div class="ox-col-cell" style="background:#F1DDCF;"><span class="ox-calc" id="ox-calc-t-${i}">${oxFmt(t)}</span></div><div class="ox-col-cell" style="background:#F7F5F3;"><span class="ox-calc" id="ox-calc-p-${i}" style="font-weight:600;">${oxFmt(p)}</span></div>
+      <div class="ox-col-cell" style="position:relative;background:#F7F5F3;"><button class="talla-trigger" id="talla-trigger-${i}" onclick="oxTogTallaPopup(event,${i})">${tallasDisplay}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;opacity:.4;"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="talla-popup" id="talla-pop-${i}">${TALLAS_LIST.map(t2=>{const on=selTallas.includes(t2);return`<button class="talla-popup-item${on?' on':''}" data-talla="${t2}" onclick="event.stopPropagation();oxTogTalla(${i},'${t2}')">${on?'✓ ':''}${t2}</button>`;}).join('')}</div></div></div>`;
     }).join('')}</div></div>
     ${rows.length===0?'<div class="ox-empty">Sin referencias — pulsa Agregar para comenzar</div>':''}
     <div class="ox-add-total-row">
     <button class="ox-add" onclick="oxDAdd()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar referencia</button>
-    <div class="ox-total-row"><span>Total</span><span class="ox-total-val">${oxFmt(total)}</span></div>
+    <div class="ox-total-row"><span>Total</span><span class="ox-total-val" id="ox-total-val">${oxFmt(total)}</span></div>
     </div>
   </div>`;
 }
@@ -786,7 +786,35 @@ function oxTogTallaPopup(e,i){
   pop.classList.add('open');
 }
 document.addEventListener('click',function(e){if(!e.target.closest('.talla-trigger')&&!e.target.closest('.talla-popup'))document.querySelectorAll('.talla-popup.open').forEach(p=>p.classList.remove('open'));});
-function oxTogTalla(i,t){const f=oxCurDigFact();const r=f.rows[i];if(!r.tallas)r.tallas=[];const idx=r.tallas.indexOf(t);if(idx>=0)r.tallas.splice(idx,1);else r.tallas.push(t);r.tallas.sort((a,b)=>TALLAS_LIST.indexOf(a)-TALLAS_LIST.indexOf(b));oxSave();oxRenderContent();}
+function oxTogTalla(i,t){const f=oxCurDigFact();const r=f.rows[i];if(!r.tallas)r.tallas=[];const idx=r.tallas.indexOf(t);if(idx>=0)r.tallas.splice(idx,1);else r.tallas.push(t);r.tallas.sort((a,b)=>TALLAS_LIST.indexOf(a)-TALLAS_LIST.indexOf(b));oxSave();oxUpdateTallaUI(i);}
+function oxUpdateTallaUI(i){
+  const r=oxCurDigFact().rows[i];if(!r)return;
+  const selTallas=(r.tallas||[]).filter(t2=>TALLAS_LIST.includes(t2));
+  const trigger=document.getElementById('talla-trigger-'+i);
+  if(trigger){
+    const disp=selTallas.length>0?`<span style="font-size:14px;font-weight:500;color:#2D1F1A;">${selTallas.join(' · ')}</span>`:`<span style="color:var(--gray);font-size:14px;">—</span>`;
+    trigger.innerHTML=disp+'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;opacity:.4;"><polyline points="6 9 12 15 18 9"/></svg>';
+  }
+  const pop=document.getElementById('talla-pop-'+i);
+  if(pop){
+    pop.querySelectorAll('.talla-popup-item').forEach(btn=>{
+      const label=btn.dataset.talla;
+      const on=selTallas.includes(label);
+      btn.classList.toggle('on',on);
+      btn.innerHTML=(on?'✓ ':'')+label;
+    });
+  }
+}
+function oxRecalcRow(i){
+  const f=oxCurDigFact();const r=f.rows[i];if(!r)return;
+  const u=parseFloat(f.colUnidad)||2500;const v=parseFloat(f.colValor)||10000;
+  const c=(parseFloat(r.piezas)||0)*u;const t=(parseFloat(r.cant)||0)*v;const p=c+t;
+  const elC=document.getElementById('ox-calc-c-'+i);if(elC)elC.textContent=oxFmt(c);
+  const elT=document.getElementById('ox-calc-t-'+i);if(elT)elT.textContent=oxFmt(t);
+  const elP=document.getElementById('ox-calc-p-'+i);if(elP)elP.textContent=oxFmt(p);
+  const total=f.rows.reduce((a,rr)=>a+(parseFloat(rr.piezas)||0)*u+(parseFloat(rr.cant)||0)*v,0);
+  const elTotal=document.getElementById('ox-total-val');if(elTotal)elTotal.textContent=oxFmt(total);
+}
 function oxDigColUnidad(val){const f=oxCurDigFact();if(val==='otro'){f.isCustomUnidad=true;f.colUnidad='';}else if(val===''){f.isCustomUnidad=false;f.colUnidad=2500;}else{f.isCustomUnidad=false;f.colUnidad=parseFloat(val)||2500;}oxSave();oxRenderContent();}
 function oxDigColUnidadCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colUnidad=raw||2500;oxSave();}
 function oxDigColValor(val){const f=oxCurDigFact();if(val==='otro'){f.isCustomValor=true;f.colValor='';}else if(val===''){f.isCustomValor=false;f.colValor=10000;}else{f.isCustomValor=false;f.colValor=parseFloat(val)||10000;}oxSave();oxRenderContent();}
