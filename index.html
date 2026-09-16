@@ -127,7 +127,6 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 .hx-autocomp-item{font-family:var(--font);font-size:13px;font-weight:300;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;background:transparent;color:#1c1c1e;text-align:left;display:block;width:100%;transition:all .12s;letter-spacing:0.25px;}
 .hx-autocomp-item:hover{background:rgba(193,119,83,0.13);color:var(--accent-deep);}
 .hx-autocomp-item mark{background:transparent;color:var(--accent-deep);font-weight:500;}
-.hx-autocomp-empty{font-family:var(--font);font-size:12.5px;font-weight:300;color:var(--gray);padding:12px 14px;text-align:center;letter-spacing:1.5px;text-transform:uppercase;font-style:italic;}
 /* Popover Valor HX */
 .hx-val-btn{font-family:var(--font-display);font-size:16px;font-weight:400;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"lnum" 1,"tnum" 1;background:transparent;border:1px solid #E0D4CD;color:#2D1F1A;padding:7px 12px;border-radius:8px;cursor:pointer;width:100%;text-align:right;transition:all .15s;}
 .hx-val-btn:hover{background:#FAF6F3;border-color:var(--accent);}
@@ -277,7 +276,7 @@ body{color:#141210;}
 .row input[type="text"][inputmode="numeric"]{font-size:23px;}
 .row input.input-fecha{font-size:20px;}
 .date-btn{font-size:14px;font-weight:500;color:#9A8B7D;}
-.hx-desc-ta{font-size:24px;font-weight:500;}
+.hx-desc-ta{font-size:24px;font-weight:300;}
 .ox-inp{font-size:22px;}
 .ox-inp.num,.ox-calc,.hx-val-btn{font-size:21px;}
 .hx-val-opt{font-size:19px;}
@@ -652,7 +651,7 @@ window.addEventListener('beforeunload',e=>{if(_sinGuardar){e.preventDefault();e.
 function showModal(title,msg,buttons){const box=document.getElementById('modal-box');box.innerHTML=`<h3>${title}</h3><p>${msg}</p><div class="modal-btns" id="modal-btns"></div>`;buttons.forEach(b=>{const btn=document.createElement('button');btn.className='modal-btn '+b.cls;btn.textContent=b.text;btn.onclick=b.action;document.getElementById('modal-btns').appendChild(btn);});document.getElementById('modal-overlay').classList.add('open');}
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
 document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
-function fmtInput(v){const d=String(v||'').replace(/\D/g,'');return d?parseInt(d,10).toLocaleString('es-CO',{minimumFractionDigits:0,maximumFractionDigits:0}):'';}
+function fmtInput(v){const d=String(v||'').replace(/\D/g,'');return d?'$'+parseInt(d,10).toLocaleString('es-CO',{minimumFractionDigits:0,maximumFractionDigits:0}):'';}
 function esc2(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 let curMod='optitex';
 function setMod(mod){curMod=mod;['optitex','horas'].forEach(m=>{document.getElementById('view-'+m).classList.toggle('active',m===mod);document.getElementById('modbtn-'+m).classList.toggle('active',m===mod);const hy=document.getElementById('hy-'+m);if(hy)hy.style.display=m===mod?'flex':'none';});document.getElementById('ox-fact-side').style.display=mod==='optitex'?'flex':'none';document.getElementById('hx-fact-side').style.display=mod==='horas'?'flex':'none';
@@ -834,9 +833,9 @@ function oxRecalcRow(i){
   const elTotal=document.getElementById('ox-total-val');if(elTotal)elTotal.textContent=oxFmt(total);
 }
 function oxDigColUnidad(val){const f=oxCurDigFact();if(val==='otro'){f.isCustomUnidad=true;f.colUnidad='';}else if(val===''){f.isCustomUnidad=false;f.colUnidad=2500;}else{f.isCustomUnidad=false;f.colUnidad=parseFloat(val)||2500;}oxSave();oxRenderContent();}
-function oxDigColUnidadCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colUnidad=raw||2500;oxSave();}
+function oxDigColUnidadCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?'$'+parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colUnidad=raw||2500;oxSave();}
 function oxDigColValor(val){const f=oxCurDigFact();if(val==='otro'){f.isCustomValor=true;f.colValor='';}else if(val===''){f.isCustomValor=false;f.colValor=10000;}else{f.isCustomValor=false;f.colValor=parseFloat(val)||10000;}oxSave();oxRenderContent();}
-function oxDigColValorCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colValor=raw||10000;oxSave();}
+function oxDigColValorCustom(input){const raw=input.value.replace(/\D/g,'');input.value=raw?'$'+parseInt(raw,10).toLocaleString('es-CO'):'';const f=oxCurDigFact();f.colValor=raw||10000;oxSave();}
 function oxDAdd(){const f=oxCurDigFact();f.rows.push({id:Date.now(),ref:'',cant:'',piezas:'',tallas:[]});oxSave();oxRenderContent();const wrap=document.querySelector('#ox-content .ox-tbl-body-wrap');if(wrap)wrap.scrollTop=wrap.scrollHeight;}
 function oxDDel(i){
   const f=oxCurDigFact();
@@ -993,9 +992,7 @@ function hxNuevaFactura(){
 }
 function hxElimFact(){hxEnsure(curHxYear);if(!confirm('¿Eliminar esta factura?'))return;hxData[curHxYear].splice(curHxFact,1);if(curHxFact>0)curHxFact--;hxFactPickerOpen=false;hxSave();hxRenderContent();}
 function hxUpdNombre(val){hxEnsure(curHxYear);hxCurFactura().nombre=val;hxSave();}
-function hxUpd(i,field,val){const f=hxCurFactura();f.rows[i][field]=val;hxSave();if(field!=='fecha'&&field!=='desc')hxRenderContent();}
-function hxSel(i,val){const r=hxCurFactura().rows[i];if(val==='custom'){r.isCustom=true;r.valor='';}else if(val===''){r.isCustom=false;r.valor='';}else{r.isCustom=false;r.valor=val;}hxSave();hxRenderContent();}
-function hxCustom(input,i){const raw=input.value.replace(/\D/g,'');input.value=raw?parseInt(raw,10).toLocaleString('es-CO'):'';hxCurFactura().rows[i].valor=raw;hxSave();}
+function hxCustom(input,i){const raw=input.value.replace(/\D/g,'');input.value=raw?'$'+parseInt(raw,10).toLocaleString('es-CO'):'';hxCurFactura().rows[i].valor=raw;hxSave();}
 function hxAdd(){hxCurFactura().rows.push({id:Date.now(),fecha:'',desc:'',valor:'',isCustom:false});hxSave();hxRenderContent();const wrap=document.querySelector('#hx-content .ox-tbl-body-wrap');if(wrap)wrap.scrollTop=wrap.scrollHeight;}
 function hxDel(i){
   const f=hxCurFactura();
@@ -1189,18 +1186,19 @@ function hxOpenAC(ta,i){
   if(!pop) return;
   const filtered=HX_DESCS.map((d,di)=>({d,di})).filter(x=>!term||x.d.toLowerCase().includes(term));
   if(filtered.length===0){
-    pop.innerHTML='<div class="hx-autocomp-empty">Sin sugerencias</div>';
-  }else{
-    pop.innerHTML=filtered.map(({d,di})=>{
-      let display=esc2(d);
-      if(term){
-        const low=d.toLowerCase();
-        const idx=low.indexOf(term);
-        if(idx>=0) display=esc2(d.slice(0,idx))+'<mark>'+esc2(d.slice(idx,idx+term.length))+'</mark>'+esc2(d.slice(idx+term.length));
-      }
-      return `<button type="button" class="hx-autocomp-item" onmousedown="event.preventDefault()" onclick="hxPickAC(${i},${di})">${display}</button>`;
-    }).join('');
+    pop.classList.remove('open');
+    hxAcCtx=null;
+    return;
   }
+  pop.innerHTML=filtered.map(({d,di})=>{
+    let display=esc2(d);
+    if(term){
+      const low=d.toLowerCase();
+      const idx=low.indexOf(term);
+      if(idx>=0) display=esc2(d.slice(0,idx))+'<mark>'+esc2(d.slice(idx,idx+term.length))+'</mark>'+esc2(d.slice(idx+term.length));
+    }
+    return `<button type="button" class="hx-autocomp-item" onmousedown="event.preventDefault()" onclick="hxPickAC(${i},${di})">${display}</button>`;
+  }).join('');
   hxAcCtx={i,ta};
   const rect=ta.getBoundingClientRect();
   const popW=Math.max(300,Math.min(520,rect.width));
