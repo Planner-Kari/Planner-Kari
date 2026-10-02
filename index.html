@@ -221,12 +221,19 @@ body{background:#FFFFFF;font-family:'Josefin Sans','Helvetica Neue',sans-serif;c
 #ox-content .ox-tbl-body-wrap{overflow-x:visible;align-self:flex-start;}
 :root{--ox-ref-w:88px;}
 .ox-grid-row{display:grid;grid-template-columns:28px var(--ox-ref-w,88px) 78px 100px 114px 80px 100px 130px 134px 170px;width:max-content;}
-.hx-grid-row{display:grid;grid-template-columns:32px 118px 1fr 160px;width:100%;}
+.hx-grid-row{display:grid;grid-template-columns:32px 118px minmax(300px,1fr) 176px;width:100%;}
 /* H_EXTRAS futurista: encabezado con degradé, renglones como fichas, fecha y valor en píldora */
-#hx-content .ox-tbl-card{padding:12px 14px;}
+#hx-content .ox-tbl-card{padding:12px 14px;overflow-x:auto;overflow-y:hidden;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+#hx-content .ox-tbl-card::-webkit-scrollbar{display:none;}
+#hx-content .ox-tbl-head-wrap,#hx-content .ox-tbl-body-wrap{min-width:640px;}
+#hx-content .ox-tbl-body-wrap .hx-grid-row{min-height:48px;margin-bottom:5px;border-radius:12px;}
+#hx-content .ox-tbl-body-wrap .ox-col-cell{padding:4px 9px;}
+#hx-content .hx-desc-ta{padding:5px 8px;min-height:32px;}
+#hx-content .hx-val-btn{padding:5px 12px;}
+#hx-content .hx-val-btn.empty{white-space:nowrap;letter-spacing:1px;}
 #hx-content .ox-tbl-head-wrap .hx-grid-row{background:linear-gradient(135deg,#0A5F58,#14998F);border-radius:12px;margin-bottom:8px;}
 #hx-content .ox-tbl-head-wrap .ox-col-label{background:transparent!important;color:#fff!important;border-bottom:none!important;}
-#hx-content .ox-tbl-body-wrap .hx-grid-row{background:var(--accent-pale);border-radius:14px;margin-bottom:6px;min-height:58px;align-items:center;}
+#hx-content .ox-tbl-body-wrap .hx-grid-row{background:var(--accent-pale);align-items:center;}
 #hx-content .date-btn{background:#fff;border:1px solid rgba(10,79,74,0.2);border-radius:999px;}
 #hx-content .hx-val-btn{background:#fff;border:1px solid rgba(10,79,74,0.2);border-radius:999px;color:var(--accent-deep);font-weight:500;}
 #hx-content .hx-val-btn.empty{color:var(--gray);font-weight:300;}
@@ -954,7 +961,7 @@ function hxRenderContent(){
     <div class="ox-tbl-body-wrap">
     ${rows.map((r,i)=>`<div class="hx-grid-row">
       <div class="ox-col-cell"><button class="ox-del" onclick="hxDel(${i})" title="Eliminar">×</button></div>
-      <div class="ox-col-cell"><button type="button" class="date-btn${r.fecha?'':' unset'}" onclick="openDPHx(event,${i})" title="Elegir fecha" style="padding:9px 6px;">${r.fecha?fmtFecha(r.fecha):'—'}</button></div>
+      <div class="ox-col-cell"><button type="button" class="date-btn${r.fecha?'':' unset'}" onclick="openDPHx(event,${i})" title="Elegir fecha" style="padding:6px 6px;">${r.fecha?fmtFecha(r.fecha):'—'}</button></div>
       <div class="ox-col-cell"><textarea class="hx-desc-ta" rows="1" placeholder="Descripción..." spellcheck="true" autocorrect="off" autocapitalize="sentences" lang="es" oninput="hxUpdDesc(this,${i})" onfocus="hxAutoResize(this);hxOpenAC(this,${i})" onblur="setTimeout(hxCloseAC,180)">${esc2(r.desc||'')}</textarea></div>
       <div class="ox-col-cell" style="justify-content:flex-end;text-align:right;">${r.isCustom?`<input type="text" class="hx-val-btn" style="cursor:text;" inputmode="numeric" placeholder="valor" value="${r.valor?fmtInput(r.valor):''}" oninput="hxCustom(this,${i})" onblur="hxRenderContent()"/>`:`<button type="button" class="hx-val-btn${r.valor?'':' empty'}" onclick="hxOpenValPop(event,${i})">${r.valor?oxFmt(r.valor):'— Seleccionar —'}</button>`}</div>
     </div>`).join('')}</div></div>
