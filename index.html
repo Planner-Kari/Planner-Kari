@@ -403,9 +403,14 @@ body.nav-collapsed .mod-view{margin-left:0;}
   .fab-wrap{bottom:18px;right:16px;}
   .header-title{font-size:22px;letter-spacing:.5px;}
   .saved-badge{display:none;}
+  .mod-btn-group{display:flex;flex-direction:row;gap:8px;position:fixed;top:70px;left:0;right:0;z-index:55;background:#fff;padding:8px 12px;border-bottom:1px solid #E4E2DD;}
+  .mod-btn-group .mod-btn{flex:1;padding:10px 6px;}
+  .mod-nav{padding-top:138px;}
+  body.nav-collapsed .mod-nav{display:block;padding-top:134px;padding-bottom:0;border-bottom:none;}
+  body.nav-collapsed .mod-nav>*:not(.mod-btn-group){display:none!important;}
   .header{padding-left:10px;padding-right:10px;}
   .header{gap:6px;}
-  #ox-content .ox-grid-row{grid-template-columns:24px 118px 78px 100px 114px 80px 100px 130px 134px 170px;}
+  #ox-content .ox-grid-row{grid-template-columns:24px min(var(--ox-ref-w,88px),150px) 78px 100px 114px 80px 100px 130px 134px 170px;}
   #ox-content .ox-grid-row>:nth-child(2){left:24px;}
   #ox-content .ref-inp{font-size:15px;}
   #ox-content .ox-grid-row>:nth-child(2) span{font-size:13px;}
